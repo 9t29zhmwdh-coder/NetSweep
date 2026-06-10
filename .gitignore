@@ -17,3 +17,7 @@ connections.json
 ## OS
 .DS_Store
 Thumbs.db
+
+## Publish profiles (contain local paths)
+*.pubxml
+*.pubxml.user
