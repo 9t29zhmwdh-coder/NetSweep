@@ -1,0 +1,31 @@
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
+
+namespace NetSweep.ViewModels;
+
+/// <summary>Shows "Verbunden" / "Getrennt" for a bool.</summary>
+public class BoolToStatusConverter : IValueConverter
+{
+    public static readonly BoolToStatusConverter Instance = new();
+
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => value is true ? "Verbunden" : "Getrennt";
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotSupportedException();
+}
+
+/// <summary>Green when connected, grey when not.</summary>
+public class BoolToBrushConverter : IValueConverter
+{
+    public static readonly BoolToBrushConverter Instance = new();
+    private static readonly Brush Connected = new SolidColorBrush(Color.FromRgb(0x2E, 0x7D, 0x32));
+    private static readonly Brush Disconnected = new SolidColorBrush(Color.FromRgb(0x9E, 0x9E, 0x9E));
+
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => value is true ? Connected : Disconnected;
+
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        => throw new NotSupportedException();
+}

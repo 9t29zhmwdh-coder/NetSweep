@@ -1,0 +1,58 @@
+<Window x:Class="NetSweep.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:NetSweep.ViewModels"
+        Title="NetSweep - Verbindungen"
+        Height="520" Width="820"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <DockPanel Margin="12">
+        <!-- Toolbar -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBlock Text="Verbindungen zu Netzlaufwerken" Style="{StaticResource Heading}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button Content="Hinzufügen" Command="{Binding AddCommand}"/>
+            <Button Content="Bearbeiten" Command="{Binding EditCommand}"/>
+            <Button Content="Entfernen" Command="{Binding RemoveCommand}"/>
+            <Separator Width="12" Background="Transparent"/>
+            <Button Content="Verbinden" Command="{Binding ConnectCommand}"/>
+            <Button Content="Öffnen / Analysieren" Command="{Binding OpenCommand}" FontWeight="SemiBold"/>
+        </StackPanel>
+
+        <!-- Status bar -->
+        <Border DockPanel.Dock="Bottom" Background="#F3F3F3" Padding="8,6" Margin="0,10,0,0" CornerRadius="4">
+            <TextBlock Text="{Binding Status}" Foreground="#444"/>
+        </Border>
+
+        <!-- Connection list -->
+        <DataGrid ItemsSource="{Binding Connections}"
+                  SelectedItem="{Binding Selected}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  RowHeaderWidth="0"
+                  SelectionMode="Single"
+                  MouseDoubleClick="DataGrid_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="180"/>
+                <DataGridTextColumn Header="Pfad" Binding="{Binding Path}" Width="*"/>
+                <DataGridTextColumn Header="Benutzer" Binding="{Binding Username}" Width="140"/>
+                <DataGridTemplateColumn Header="Status" Width="110">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding IsConnected, Converter={x:Static vm:BoolToStatusConverter.Instance}}"
+                                       FontWeight="SemiBold"
+                                       Foreground="{Binding IsConnected, Converter={x:Static vm:BoolToBrushConverter.Instance}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

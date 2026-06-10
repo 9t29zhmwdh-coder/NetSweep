@@ -1,0 +1,44 @@
+name: Build NetSweep
+
+# Baut die WPF-App bei jedem Push / Pull Request auf main
+# und stellt die veroeffentlichte EXE als Artefakt bereit.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore NetSweep.sln
+
+      - name: Build (Release)
+        run: dotnet build NetSweep.sln -c Release --no-restore
+
+      - name: Publish (self-contained, single file)
+        run: >-
+          dotnet publish NetSweep/NetSweep.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true
+          -o publish
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NetSweep-win-x64
+          path: publish/NetSweep.exe
+          if-no-files-found: error

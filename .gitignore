@@ -1,0 +1,19 @@
+## Visual Studio / .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+[Dd]ebug/
+[Rr]elease/
+*.cache
+
+## Credentials & local config
+*.secret
+*.secrets
+connections.json
+.env
+
+## OS
+.DS_Store
+Thumbs.db

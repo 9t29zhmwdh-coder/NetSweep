@@ -1,0 +1,130 @@
+# NetSweep – maschinenlesbare Projektdokumentation
+# Dieses Dokument beschreibt das Projekt strukturiert und kann z.B. von Skripten,
+# CI/CD oder einer Doku-Generierung ausgelesen werden (YAML 1.2).
+
+project:
+  name: NetSweep
+  title: Network Storage Cleanup
+  description: >-
+    Windows-Desktop-App (WPF, .NET 8) zum Prüfen und Bereinigen von Netzlaufwerken
+    (NAS / UNC-Pfade): Verbindungen verwalten, Speicherbelegung pro Ordner ansehen
+    (TreeSize-Art), alte/grosse/doppelte Dateien finden, leere Ordner entfernen sowie
+    Dateien kopieren, in Quarantäne verschieben oder endgültig löschen.
+  version: 0.1.0
+  status: starter      # starter | beta | stable
+  language: de-CH
+  author: Rafael Yilmaz (https://github.com/9t29zhmwdh-coder)
+  license: TBD         # z.B. MIT – bitte vor Veröffentlichung festlegen
+
+platform:
+  os: Windows 10/11
+  framework: net8.0-windows
+  ui: WPF
+  architecture: MVVM
+  external_dependencies:
+    - id: System.Security.Cryptography.ProtectedData
+      version: 8.0.0
+      purpose: DPAPI-Verschlüsselung der NAS-Passwörter
+
+requirements:
+  build:
+    - Visual Studio 2022 (17.8+) mit Workload ".NET-Desktopentwicklung"
+    - .NET 8 SDK
+  runtime:
+    - Windows 10/11
+    - .NET 8 Desktop Runtime (oder self-contained veröffentlichen)
+
+build:
+  open: NetSweep.sln
+  commands:
+    restore: dotnet restore
+    build: dotnet build -c Release
+    run: dotnet run --project NetSweep
+    publish: >-
+      dotnet publish NetSweep/NetSweep.csproj -c Release -r win-x64
+      --self-contained true -p:PublishSingleFile=true
+  output_executable: NetSweep.exe
+
+features:
+  - id: connections
+    name: Verbindungsverwaltung
+    description: Mehrere NAS/UNC-Verbindungen anlegen, bearbeiten, entfernen, verbinden.
+    status: done
+  - id: treesize
+    name: Ordnergrösse (TreeSize)
+    description: Aggregierte Speicherbelegung je Ordner inkl. Prozent-Anteil.
+    status: done
+  - id: filter-old
+    name: Alte Dateien finden
+    description: Filter nach Alter (Tage) seit letzter Änderung.
+    status: done
+  - id: filter-large
+    name: Grosse Dateien finden
+    description: Filter nach Mindestgrösse (z.B. 500 MB).
+    status: done
+  - id: duplicates
+    name: Duplikate erkennen
+    description: Identische Dateien per Grösse + SHA-256-Hash, zeigt freigebbaren Platz.
+    status: done
+  - id: empty-folders
+    name: Leere Ordner
+    description: Leere Verzeichnisse anzeigen und entfernen.
+    status: done
+  - id: delete
+    name: Endgültig löschen
+    description: Permanentes Löschen mit doppelter Sicherheitsabfrage (kein Papierkorb).
+    status: done
+  - id: quarantine
+    name: In Quarantäne verschieben
+    description: Sicherere Alternative – Dateien in einen Quarantäne-Ordner verschieben.
+    status: done
+  - id: copy-backup
+    name: Kopieren / Backup
+    description: Markierte Dateien in einen Zielordner kopieren (Struktur bleibt erhalten).
+    status: done
+  - id: export-csv
+    name: CSV-Export
+    description: Dateilisten und Duplikate als CSV exportieren.
+    status: done
+
+security:
+  credential_storage: Windows DPAPI (CurrentUser-Scope), base64 in JSON
+  credential_location: "%AppData%\\NetSweep\\connections.json"
+  clear_text_passwords: false
+  delete_behavior: permanent           # ohne Papierkorb
+  delete_confirmation: double           # zwei Sicherheitsabfragen
+  recommendation: >-
+    Auf dem NAS ein eingeschränktes Konto mit Schreibrechten nur auf die
+    freizugebenden Ordner verwenden.
+
+structure:
+  - path: NetSweep.sln
+    type: solution
+  - path: NetSweep/App.xaml(.cs)
+    type: app-entry
+    note: Zeigt Welcome-Fenster, dann Hauptfenster.
+  - path: NetSweep/Models/
+    type: models
+    note: StorageConnection, FileEntry, FolderNode, ScanResult, DuplicateGroup.
+  - path: NetSweep/Services/
+    type: services
+    note: >-
+      ConnectionStore, CredentialService, NetworkConnectionService, ScanService,
+      DuplicateFinder, FileOperationService, ReportService.
+  - path: NetSweep/ViewModels/
+    type: viewmodels
+    note: MainViewModel, AnalysisViewModel, Converters, RelayCommand, ViewModelBase.
+  - path: NetSweep/Views/
+    type: views
+    note: WelcomeWindow, MainWindow, ConnectionEditDialog, AnalysisWindow.
+  - path: NetSweep/Helpers/
+    type: helpers
+    note: ByteSize (Grössen-Formatierung/-Parsing).
+
+roadmap:
+  - Geplante/automatische Scans (z.B. wöchentlich)
+  - Inkrementelles Backup mit Versionierung
+  - Löschen in den Windows-Papierkorb als zusätzliche Option
+  - Statistik nach Dateityp (Diagramm)
+  - Mehrere Pfade gleichzeitig scannen und über Zeit vergleichen
+  - Audit-/Protokolldatei aller Lösch- und Verschiebeaktionen
