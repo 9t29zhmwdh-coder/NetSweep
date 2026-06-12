@@ -6,8 +6,6 @@
 
 > 🇩🇪 [Deutsche Version](README.de.md)
 
-# NetSweep – Network Storage Cleanup
-
 A Windows desktop app (WPF, .NET 8) for scanning and cleaning up network drives (NAS / UNC paths). Manage connections, visualize storage usage per folder (TreeSize-style), find old/large/duplicate files, remove empty folders, and copy, quarantine, or permanently delete files.
 
 ## Features
