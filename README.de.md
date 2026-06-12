@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="RayStudio.png" alt="RayStudio Logo" width="120"/>
+
+  <h1>NetSweep – Netzwerkspeicher bereinigen</h1>
+</div>
+
 > 🇬🇧 [English Version](README.md)
 
 # NetSweep – Netzwerkspeicher bereinigen
@@ -65,5 +71,10 @@ NetSweep.sln
 - [ ] Audit-Protokoll für alle Lösch-/Verschiebeaktionen
 
 ---
+
+<div align="right">
+  <sub>by</sub><br/>
+  <img src="RayStudio.png" alt="RayStudio" width="70"/>
+</div>
 
 **Author:** [Rafael Yilmaz](https://github.com/9t29zhmwdh-coder) &nbsp;·&nbsp; **Status:** Early Release &nbsp;·&nbsp; **Last Updated:** June 2026
