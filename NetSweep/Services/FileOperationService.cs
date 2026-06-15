@@ -60,7 +60,8 @@ public class FileOperationService
                 try
                 {
                     string target = BuildTargetPath(f.FullPath, rootPath, quarantineFolder);
-                    Directory.CreateDirectory(Path.GetDirectoryName(target)!);
+                    var dir = Path.GetDirectoryName(target);
+                    if (dir != null) Directory.CreateDirectory(dir);
                     File.Move(f.FullPath, target, overwrite: false);
                     report.Succeeded++;
                     report.BytesFreed += f.Size;
@@ -87,7 +88,8 @@ public class FileOperationService
                 try
                 {
                     string target = BuildTargetPath(f.FullPath, rootPath, targetFolder);
-                    Directory.CreateDirectory(Path.GetDirectoryName(target)!);
+                    var dir = Path.GetDirectoryName(target);
+                    if (dir != null) Directory.CreateDirectory(dir);
                     File.Copy(f.FullPath, target, overwrite: true);
                     report.Succeeded++;
                     report.BytesFreed += f.Size;

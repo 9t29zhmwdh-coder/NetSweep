@@ -86,9 +86,9 @@ public class AnalysisViewModel : ViewModelBase
         FindDuplicatesCommand = new RelayCommand(async _ => await FindDuplicatesAsync(), _ => HasData() && IsIdle);
         ShowEmptyFoldersCommand = new RelayCommand(_ => ShowEmptyFolders(), _ => HasData());
         DeleteEmptyFoldersCommand = new RelayCommand(async _ => await DeleteEmptyFoldersAsync(), _ => HasData() && IsIdle);
-        DeleteCommand = new RelayCommand(async p => await DeleteAsync(p as IList), _ => IsIdle);
-        QuarantineCommand = new RelayCommand(async p => await QuarantineAsync(p as IList), _ => IsIdle);
-        CopyCommand = new RelayCommand(async p => await CopyAsync(p as IList), _ => IsIdle);
+        DeleteCommand = new RelayCommand(async p => { try { await DeleteAsync(p as IList); } catch (Exception ex) { Status = ex.Message; } }, _ => IsIdle && _lastResult != null);
+        QuarantineCommand = new RelayCommand(async p => { try { await QuarantineAsync(p as IList); } catch (Exception ex) { Status = ex.Message; } }, _ => IsIdle && _lastResult != null);
+        CopyCommand = new RelayCommand(async p => { try { await CopyAsync(p as IList); } catch (Exception ex) { Status = ex.Message; } }, _ => IsIdle);
         ExportFilesCommand = new RelayCommand(_ => ExportFiles(), _ => Files.Count > 0);
         ExportDuplicatesCommand = new RelayCommand(_ => ExportDuplicates(), _ => Duplicates.Count > 0);
     }

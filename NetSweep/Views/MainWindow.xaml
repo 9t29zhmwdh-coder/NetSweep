@@ -5,6 +5,12 @@
         Title="NetSweep - Verbindungen"
         Height="520" Width="820"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="Heading" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
     <Window.DataContext>
         <vm:MainViewModel/>
     </Window.DataContext>
