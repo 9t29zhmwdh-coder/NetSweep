@@ -6,7 +6,7 @@
 
 > 🇩🇪 [Deutsche Version](README.de.md)
 
-A Windows desktop app (WPF, .NET 8) for scanning and cleaning up network drives (NAS / UNC paths). Manage connections, visualize storage usage per folder (TreeSize-style), find old/large/duplicate files, remove empty folders, and copy, quarantine, or permanently delete files.
+A Windows desktop app (WPF, .NET 8) for scanning and cleaning up network drives (NAS / UNC paths). Manage connections, visualize storage usage per folder, find old/large/duplicate files, remove empty folders, and copy, quarantine, or permanently delete files.
 
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
 ![.NET](https://img.shields.io/badge/.NET-8-purple?logo=dotnet)
@@ -18,7 +18,7 @@ A Windows desktop app (WPF, .NET 8) for scanning and cleaning up network drives 
 ## Features
 
 - **Connection Management** — Add, edit and connect to multiple NAS/UNC paths
-- **TreeSize View** — Aggregated storage usage per folder with percentage share
+- **Storage View** — Aggregated storage usage per folder with percentage share
 - **File Filters** — Filter by age (days), size, extension or filename
 - **Duplicate Detection** — Find identical files via SHA-256 hash, see reclaimable space
 - **Empty Folders** — List and remove empty directories
