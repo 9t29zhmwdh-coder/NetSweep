@@ -8,12 +8,12 @@
 
 # NetSweep – Netzwerkspeicher bereinigen
 
-Eine Windows-Desktop-App (WPF, .NET 8) zum Prüfen und Bereinigen von Netzlaufwerken (NAS / UNC-Pfade). Verbindungen verwalten, Speicherbelegung pro Ordner visualisieren (TreeSize-Stil), alte/grosse/doppelte Dateien finden, leere Ordner entfernen sowie Dateien kopieren, in Quarantäne verschieben oder endgültig löschen.
+Eine Windows-Desktop-App (WPF, .NET 8) zum Prüfen und Bereinigen von Netzlaufwerken (NAS / UNC-Pfade). Verbindungen verwalten, Speicherbelegung pro Ordner visualisieren, alte/grosse/doppelte Dateien finden, leere Ordner entfernen sowie Dateien kopieren, in Quarantäne verschieben oder endgültig löschen.
 
 ## Funktionen
 
 - **Verbindungsverwaltung** — Mehrere NAS/UNC-Verbindungen anlegen, bearbeiten und verbinden
-- **TreeSize-Ansicht** — Aggregierte Speicherbelegung je Ordner mit Prozentanteil
+- **Speicheransicht** — Aggregierte Speicherbelegung je Ordner mit Prozentanteil
 - **Dateifilter** — Nach Alter (Tage), Grösse, Endung oder Dateiname filtern
 - **Duplikaterkennung** — Identische Dateien per SHA-256-Hash finden, freigebbaren Platz sehen
 - **Leere Ordner** — Leere Verzeichnisse auflisten und entfernen
