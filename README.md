@@ -9,9 +9,9 @@
 A Windows desktop app (WPF, .NET 8) for scanning and cleaning up network drives (NAS / UNC paths). Manage connections, visualize storage usage per folder, find old/large/duplicate files, remove empty folders, and copy, quarantine, or permanently delete files.
 
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
-![.NET](https://img.shields.io/badge/.NET-8-purple?logo=dotnet)
-![WPF](https://img.shields.io/badge/WPF-.NET%208-blueviolet?logo=windows)
-![Platform](https://img.shields.io/badge/Platform-Windows-blue?logo=windows)
+![.NET](https://img.shields.io/badge/.NET-8-orange?logo=dotnet)
+![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 
