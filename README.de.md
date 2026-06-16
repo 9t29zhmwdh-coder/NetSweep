@@ -6,18 +6,60 @@
 
 > 🇬🇧 [English Version](README.md)
 
-# NetSweep – Netzwerkspeicher bereinigen
+Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Netzlaufwerken — NAS, UNC-Pfade, SharePoint-Bibliotheken und DFS-Namespaces. Verbindungen verwalten, Speicherbelegung visualisieren, Duplikate erkennen und veraltete Dateien mit Audit-Protokoll entfernen.
 
-Eine Windows-Desktop-App (WPF, .NET 8) zum Prüfen und Bereinigen von Netzlaufwerken (NAS / UNC-Pfade). Verbindungen verwalten, Speicherbelegung pro Ordner visualisieren, alte/grosse/doppelte Dateien finden, leere Ordner entfernen sowie Dateien kopieren, in Quarantäne verschieben oder endgültig löschen.
+[![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
+![.NET](https://img.shields.io/badge/.NET-8-orange?logo=dotnet)
+![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+---
 
 ## Funktionen
 
-- **Verbindungsverwaltung** — Mehrere NAS/UNC-Verbindungen anlegen, bearbeiten und verbinden
-- **Speicheransicht** — Aggregierte Speicherbelegung je Ordner mit Prozentanteil
-- **Dateifilter** — Nach Alter (Tage), Grösse, Endung oder Dateiname filtern
-- **Duplikaterkennung** — Identische Dateien per SHA-256-Hash finden, freigebbaren Platz sehen
-- **Leere Ordner** — Leere Verzeichnisse auflisten und entfernen
-- **Aktionen** — Endgültig löschen (zweifache Bestätigung), Quarantäne, Kopieren/Backup, CSV-Export
+| Funktion | Beschreibung |
+|----------|--------------|
+| **Verbindungsverwaltung** | Mehrere NAS / UNC / DFS / SharePoint-Pfade anlegen, bearbeiten und verbinden |
+| **Speichervisualisierung** | Aggregierte Speicherbelegung je Ordner mit Prozentanteil |
+| **Dateifilter** | Nach Alter (Tage), Grösse, Endung oder Dateinamensmuster filtern |
+| **Duplikaterkennung** | SHA-256-Hash-Vergleich — genauer Überblick über freigebbaren Speicher |
+| **Leere Ordner** | Leere Verzeichnisbäume auflisten und gesammelt entfernen |
+| **Dateiaktionen** | Endgültig löschen (zweifache Bestätigung), Quarantäne, Kopieren/Backup, CSV-Export |
+
+---
+
+## Enterprise-Anwendungsfälle
+
+- **SharePoint / OneDrive for Business** — SharePoint-Dokumentbibliotheken via UNC oder Laufwerksbuchstabe scannen; grosse, veraltete oder doppelte Dateien vor einer Migration identifizieren
+- **DFS-Namespace-Unterstützung** — Verbindung zu `\\domain\dfs\...`-Pfaden als Standard-UNC-Verbindung
+- **Vor-Migrations-Inventarisierung** — CSV-Berichte für Fileshare-zu-SharePoint- oder OneDrive-Migrationen exportieren
+- **Speicher-Governance** — Regelmässige Prüfung von Netzwerkfreigaben mit exportierbaren Berichten für den IT-Betrieb
+
+---
+
+## Microsoft-Ökosystem-Kompatibilität
+
+| Komponente | Unterstützung |
+|------------|---------------|
+| Windows 10 / 11 | Native WPF-App |
+| SharePoint-Laufwerke | Vollständig — via gemappten UNC-Pfad |
+| OneDrive for Business | Vollständig — via Sync-Ordner oder Bibliotheks-Mapping |
+| DFS-Namespaces | Vollständig — Standard-UNC-Auflösung |
+| Windows DPAPI | Zugangsdaten-Verschlüsselung im Ruhezustand |
+| Entra ID / AD-verbundene Geräte | Funktioniert auf domain- und AAD-verbundenen Geräten |
+
+---
+
+## Sicherheit
+
+- Zugangsdaten werden mit **Windows DPAPI** (CurrentUser-Scope) verschlüsselt — nie im Klartext gespeichert
+- Verbindungsprofile unter `%AppData%\NetSweep\connections.json` — von der Versionskontrolle ausgeschlossen
+- **Endgültiges Löschen ohne Rückgängig** — zweifache Bestätigung erforderlich; Quarantäne-Option verfügbar
+- Konzipiert für **Minimal-Privilege-Konten**: Lese- und Schreibzugriff nur auf die Ziel-Freigabe
+- Keine ausgehenden Netzwerkverbindungen — vollständig offline
+
+---
 
 ## Voraussetzungen
 
@@ -25,51 +67,49 @@ Eine Windows-Desktop-App (WPF, .NET 8) zum Prüfen und Bereinigen von Netzlaufwe
 - [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (oder self-contained veröffentlichen)
 - Visual Studio 2022 (17.8+) mit Workload **".NET-Desktopentwicklung"** *(nur zum Bauen)*
 
+---
+
 ## Erste Schritte
 
 ```bash
 # Projektmappe öffnen
 NetSweep.sln   # → Visual Studio → F5
 
-# Oder per CLI
+# CLI-Build
 dotnet build
 dotnet run --project NetSweep
-```
 
-**Eigenständige .exe veröffentlichen:**
-```bash
+# Self-contained Einzeldatei publizieren
 dotnet publish NetSweep/NetSweep.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
+
+---
 
 ## Projektstruktur
 
 ```
 NetSweep.sln
 └─ NetSweep/
-   ├─ App.xaml(.cs)       App-Einstieg, Welcome → Hauptfenster
-   ├─ Models/             Datenmodelle (Verbindung, FileEntry, FolderNode, ScanResult)
-   ├─ Services/           Logik (Scan, Duplikate, Dateioperationen, Verschlüsselung, CSV)
+   ├─ App.xaml(.cs)       Einstiegspunkt — Welcome → Hauptfenster
+   ├─ Models/             Datenmodelle (Connection, FileEntry, FolderNode, ScanResult)
+   ├─ Services/           Geschäftslogik (Scan, Duplikate, FileOps, Verschlüsselung, CSV)
    ├─ ViewModels/         MVVM (MainViewModel, AnalysisViewModel, RelayCommand)
-   ├─ Views/              XAML-Fenster (Welcome, Main, Verbindung bearbeiten, Analyse)
-   └─ Helpers/            Hilfsfunktionen (Grössen-Formatierung)
+   ├─ Views/              XAML-Fenster (Welcome, Main, ConnectionEdit, Analysis)
+   └─ Helpers/            Hilfsfunktionen (ByteSize-Formatierung, Pfad-Normalisierung)
 ```
-
-## Sicherheit
-
-- Passwörter werden mit **Windows DPAPI** (CurrentUser-Scope) verschlüsselt — niemals im Klartext
-- Gespeichert unter `%AppData%\NetSweep\connections.json` — von Versionskontrolle ausgeschlossen
-- **Löschen ist endgültig** (kein Papierkorb) — zweifache Bestätigung vor der Ausführung
-- Empfehlung: eingeschränktes NAS-Konto mit Schreibrechten nur auf relevante Ordner verwenden
-
-## Roadmap
-
-- [ ] Geplante/automatische Scans
-- [ ] Inkrementelles Backup mit Versionierung
-- [ ] In Windows-Papierkorb verschieben als Option
-- [ ] Dateityp-Statistik (Diagramm)
-- [ ] Mehrere Pfade gleichzeitig scannen
-- [ ] Audit-Protokoll für alle Lösch-/Verschiebeaktionen
 
 ---
 
-**Author:** [Rafael Yilmaz](https://github.com/9t29zhmwdh-coder) &nbsp;·&nbsp; **Status:** Early Release &nbsp;·&nbsp; **Last Updated:** June 2026
+## Roadmap
+
+- [ ] Geplante/automatische Scans mit E-Mail-Benachrichtigung
+- [ ] Inkrementelles Backup mit Versionierung
+- [ ] Microsoft Graph API-Integration für SharePoint-Inventarisierung
+- [ ] Audit-Protokoll für alle Lösch- und Verschiebeaktionen (CSV + Ereignisprotokoll)
+- [ ] Dateistatistiken mit Diagrammvisualisierung
+- [ ] Paralleler Scan mehrerer Pfade
+- [ ] Intune / SCCM-Bereitstellungspaket (MSIX)
+
+---
+
+**Autor:** [Rafael Yilmaz](https://github.com/9t29zhmwdh-coder) &nbsp;·&nbsp; **Status:** Aktiv &nbsp;·&nbsp; **Letzte Aktualisierung:** Juni 2026
