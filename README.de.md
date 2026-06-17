@@ -1,12 +1,12 @@
 <div align="center">
   <img src="RayStudio.png" alt="RayStudio Logo" width="120"/>
 
-  <h1>NetSweep – Netzwerkspeicher bereinigen</h1>
+  <h1>NetSweep: Netzwerkspeicher bereinigen</h1>
 </div>
 
 > 🇬🇧 [English Version](README.md)
 
-Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Netzlaufwerken — NAS, UNC-Pfade, SharePoint-Bibliotheken und DFS-Namespaces. Verbindungen verwalten, Speicherbelegung visualisieren, Duplikate erkennen und veraltete Dateien mit Audit-Protokoll entfernen.
+Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Netzlaufwerken: NAS-Freigaben, UNC-Pfade, SharePoint-Bibliotheken und DFS-Namespaces. Verbindungen verwalten, Speicherbelegung visualisieren, Duplikate erkennen und veraltete Dateien mit Audit-Protokoll entfernen.
 
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
 ![.NET](https://img.shields.io/badge/.NET-8-orange?logo=dotnet)
@@ -23,7 +23,7 @@ Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Net
 | **Verbindungsverwaltung** | Mehrere NAS / UNC / DFS / SharePoint-Pfade anlegen, bearbeiten und verbinden |
 | **Speichervisualisierung** | Aggregierte Speicherbelegung je Ordner mit Prozentanteil |
 | **Dateifilter** | Nach Alter (Tage), Grösse, Endung oder Dateinamensmuster filtern |
-| **Duplikaterkennung** | SHA-256-Hash-Vergleich — genauer Überblick über freigebbaren Speicher |
+| **Duplikaterkennung** | SHA-256-Hash-Vergleich mit genauem Überblick über freigebbaren Speicher |
 | **Leere Ordner** | Leere Verzeichnisbäume auflisten und gesammelt entfernen |
 | **Dateiaktionen** | Endgültig löschen (zweifache Bestätigung), Quarantäne, Kopieren/Backup, CSV-Export |
 
@@ -31,10 +31,10 @@ Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Net
 
 ## Enterprise-Anwendungsfälle
 
-- **SharePoint / OneDrive for Business** — SharePoint-Dokumentbibliotheken via UNC oder Laufwerksbuchstabe scannen; grosse, veraltete oder doppelte Dateien vor einer Migration identifizieren
-- **DFS-Namespace-Unterstützung** — Verbindung zu `\\domain\dfs\...`-Pfaden als Standard-UNC-Verbindung
-- **Vor-Migrations-Inventarisierung** — CSV-Berichte für Fileshare-zu-SharePoint- oder OneDrive-Migrationen exportieren
-- **Speicher-Governance** — Regelmässige Prüfung von Netzwerkfreigaben mit exportierbaren Berichten für den IT-Betrieb
+- **SharePoint / OneDrive for Business**: SharePoint-Dokumentbibliotheken via UNC oder Laufwerksbuchstabe scannen; grosse, veraltete oder doppelte Dateien vor einer Migration identifizieren
+- **DFS-Namespace-Unterstützung**: Verbindung zu `\\domain\dfs\...`-Pfaden als Standard-UNC-Verbindung
+- **Vor-Migrations-Inventarisierung**: CSV-Berichte für Fileshare-zu-SharePoint- oder OneDrive-Migrationen exportieren
+- **Speicher-Governance**: Regelmässige Prüfung von Netzwerkfreigaben mit exportierbaren Berichten für den IT-Betrieb
 
 ---
 
@@ -43,9 +43,9 @@ Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Net
 | Komponente | Unterstützung |
 |------------|---------------|
 | Windows 10 / 11 | Native WPF-App |
-| SharePoint-Laufwerke | Vollständig — via gemappten UNC-Pfad |
-| OneDrive for Business | Vollständig — via Sync-Ordner oder Bibliotheks-Mapping |
-| DFS-Namespaces | Vollständig — Standard-UNC-Auflösung |
+| SharePoint-Laufwerke | Vollständig, via gemapptem UNC-Pfad |
+| OneDrive for Business | Vollständig, via Sync-Ordner oder Bibliotheks-Mapping |
+| DFS-Namespaces | Vollständig, via Standard-UNC-Auflösung |
 | Windows DPAPI | Zugangsdaten-Verschlüsselung im Ruhezustand |
 | Entra ID / AD-verbundene Geräte | Funktioniert auf domain- und AAD-verbundenen Geräten |
 
@@ -53,11 +53,11 @@ Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Net
 
 ## Sicherheit
 
-- Zugangsdaten werden mit **Windows DPAPI** (CurrentUser-Scope) verschlüsselt — nie im Klartext gespeichert
-- Verbindungsprofile unter `%AppData%\NetSweep\connections.json` — von der Versionskontrolle ausgeschlossen
-- **Endgültiges Löschen ohne Rückgängig** — zweifache Bestätigung erforderlich; Quarantäne-Option verfügbar
+- Zugangsdaten werden mit **Windows DPAPI** (CurrentUser-Scope) verschlüsselt und nie im Klartext gespeichert
+- Verbindungsprofile unter `%AppData%\NetSweep\connections.json`, von der Versionskontrolle ausgeschlossen
+- **Endgültiges Löschen ohne Rückgängig**: zweifache Bestätigung erforderlich; Quarantäne-Option verfügbar
 - Konzipiert für **Minimal-Privilege-Konten**: Lese- und Schreibzugriff nur auf die Ziel-Freigabe
-- Keine ausgehenden Netzwerkverbindungen — vollständig offline
+- Keine ausgehenden Netzwerkverbindungen, vollständig offline
 
 ---
 
