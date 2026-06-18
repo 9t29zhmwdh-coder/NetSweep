@@ -8,6 +8,8 @@
 
 A Windows desktop application (WPF, .NET 8) for auditing and cleaning up network drives: NAS shares, UNC paths, mapped SharePoint libraries and DFS namespaces. Manage connections, visualize storage usage, detect duplicates, and remove stale files with full audit-trail support.
 
+Designed for enterprise Microsoft environments. Supports SharePoint Online mapped drives and OneDrive for Business, aligned with [Microsoft Purview data lifecycle management](https://learn.microsoft.com/en-us/microsoft-365/compliance/manage-data-governance) recommendations.
+
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
 ![.NET](https://img.shields.io/badge/.NET-8-orange?logo=dotnet)
 ![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)

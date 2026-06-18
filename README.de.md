@@ -8,6 +8,8 @@
 
 Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Netzlaufwerken: NAS-Freigaben, UNC-Pfade, SharePoint-Bibliotheken und DFS-Namespaces. Verbindungen verwalten, Speicherbelegung visualisieren, Duplikate erkennen und veraltete Dateien mit Audit-Protokoll entfernen.
 
+Konzipiert fuer Microsoft-Enterprise-Umgebungen. Unterstuetzt SharePoint Online-Laufwerke und OneDrive for Business, ausgerichtet an den [Microsoft Purview Datenverwaltungsempfehlungen](https://learn.microsoft.com/de-de/microsoft-365/compliance/manage-data-governance).
+
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
 ![.NET](https://img.shields.io/badge/.NET-8-orange?logo=dotnet)
 ![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
