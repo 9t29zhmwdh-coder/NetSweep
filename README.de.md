@@ -10,8 +10,7 @@ Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Net
 
 Konzipiert fuer Microsoft-Enterprise-Umgebungen. Unterstuetzt SharePoint Online-Laufwerke und OneDrive for Business, ausgerichtet an den [Microsoft Purview Datenverwaltungsempfehlungen](https://learn.microsoft.com/de-de/microsoft-365/compliance/manage-data-governance).
 
-[![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions)
-![.NET](https://img.shields.io/badge/.NET-8-orange?logo=dotnet)
+[![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/build.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions) ![Microsoft | M365](https://img.shields.io/badge/Microsoft-M365-0078d4?logo=microsoft&logoColor=white) ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows&logoColor=0078d4) ![C#](https://img.shields.io/badge/C%23-239120?logo=dotnet&logoColor=white) ![AI | Claude Code](https://img.shields.io/badge/AI-Claude_Code-black?logo=anthropic&logoColor=white) ![AI | Copilot](https://img.shields.io/badge/AI-Copilot-black?logo=github&logoColor=white)
 ![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -114,4 +113,4 @@ NetSweep.sln
 
 ---
 
-**Autor:** [Rafael Yilmaz](https://github.com/9t29zhmwdh-coder) &nbsp;·&nbsp; **Status:** Aktiv &nbsp;·&nbsp; **Letzte Aktualisierung:** Juni 2026
+**Autor:** [Rafael Yilmaz](https://github.com/9t29zhmwdh-coder) · **Status:** Active · v0.1.0 · **Lizenz:** MIT
