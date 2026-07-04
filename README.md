@@ -90,7 +90,7 @@ dotnet publish NetSweep/NetSweep.csproj -c Release -r win-x64 --self-contained t
 ```
 NetSweep.sln
 └─ NetSweep/
-   ├─ App.xaml(.cs)       Entry point — Welcome → Main window
+   ├─ App.xaml(.cs)       Entry point: Welcome → Main window
    ├─ Models/             Data models (Connection, FileEntry, FolderNode, ScanResult)
    ├─ Services/           Business logic (Scan, Duplicates, FileOps, Encryption, CSV)
    ├─ ViewModels/         MVVM (MainViewModel, AnalysisViewModel, RelayCommand)
