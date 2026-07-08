@@ -253,7 +253,7 @@ public class AnalysisViewModel : ViewModelBase
             "Wirklich loeschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
         if (first != MessageBoxResult.Yes) return;
 
-        // Second warning – explicit point of no return
+        // Second warning: explicit point of no return
         var second = MessageBox.Show(
             "ACHTUNG: Diese Dateien werden NICHT in den Papierkorb verschoben.\n" +
             "Sie koennen danach NICHT wiederhergestellt werden.\n\n" +

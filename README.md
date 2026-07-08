@@ -91,11 +91,12 @@ dotnet publish NetSweep/NetSweep.csproj -c Release -r win-x64 --self-contained t
 NetSweep.sln
 └─ NetSweep/
    ├─ App.xaml(.cs)       Entry point: Welcome → Main window
-   ├─ Models/             Data models (Connection, FileEntry, FolderNode, ScanResult)
-   ├─ Services/           Business logic (Scan, Duplicates, FileOps, Encryption, CSV)
-   ├─ ViewModels/         MVVM (MainViewModel, AnalysisViewModel, RelayCommand)
+   ├─ Models/             Data models (StorageConnection, FileEntry, FolderNode, ScanResult, DuplicateGroup)
+   ├─ Services/           Business logic (ScanService, DuplicateFinder, FileOperationService,
+   │                      ConnectionStore, CredentialService, NetworkConnectionService, ReportService)
+   ├─ ViewModels/         MVVM (ViewModelBase, MainViewModel, AnalysisViewModel, Converters)
    ├─ Views/              XAML windows (Welcome, Main, ConnectionEdit, Analysis)
-   └─ Helpers/            Utilities (ByteSize formatting, path normalization)
+   └─ Helpers/            Utilities (ByteSize formatting, path normalization, RelayCommand)
 ```
 
 ---

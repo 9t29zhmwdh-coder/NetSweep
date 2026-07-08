@@ -1,4 +1,4 @@
-# NetSweep – maschinenlesbare Projektdokumentation
+# NetSweep, maschinenlesbare Projektdokumentation
 # Dieses Dokument beschreibt das Projekt strukturiert und kann z.B. von Skripten,
 # CI/CD oder einer Doku-Generierung ausgelesen werden (YAML 1.2).
 
@@ -10,11 +10,11 @@ project:
     (NAS / UNC-Pfade): Verbindungen verwalten, Speicherbelegung pro Ordner ansehen
     (TreeSize-Art), alte/grosse/doppelte Dateien finden, leere Ordner entfernen sowie
     Dateien kopieren, in Quarantäne verschieben oder endgültig löschen.
-  version: 0.1.0
+  version: 0.1.1
   status: starter      # starter | beta | stable
   language: de-CH
   author: Rafael Yilmaz (https://github.com/9t29zhmwdh-coder)
-  license: TBD         # z.B. MIT – bitte vor Veröffentlichung festlegen
+  license: MIT
 
 platform:
   os: Windows 10/11
@@ -76,7 +76,7 @@ features:
     status: done
   - id: quarantine
     name: In Quarantäne verschieben
-    description: Sicherere Alternative – Dateien in einen Quarantäne-Ordner verschieben.
+    description: Sicherere Alternative, Dateien in einen Quarantäne-Ordner verschieben.
     status: done
   - id: copy-backup
     name: Kopieren / Backup
@@ -113,13 +113,13 @@ structure:
       DuplicateFinder, FileOperationService, ReportService.
   - path: NetSweep/ViewModels/
     type: viewmodels
-    note: MainViewModel, AnalysisViewModel, Converters, RelayCommand, ViewModelBase.
+    note: MainViewModel, AnalysisViewModel, Converters, ViewModelBase.
   - path: NetSweep/Views/
     type: views
     note: WelcomeWindow, MainWindow, ConnectionEditDialog, AnalysisWindow.
   - path: NetSweep/Helpers/
     type: helpers
-    note: ByteSize (Grössen-Formatierung/-Parsing).
+    note: ByteSize (Grössen-Formatierung/-Parsing), PathBuilder, RelayCommand.
 
 roadmap:
   - Geplante/automatische Scans (z.B. wöchentlich)

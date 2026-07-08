@@ -9,7 +9,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>NetSweep</AssemblyName>
     <RootNamespace>NetSweep</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <Company>novoSYS Informatik GmbH</Company>
     <Product>NetSweep - Network Storage Cleanup</Product>
   </PropertyGroup>
