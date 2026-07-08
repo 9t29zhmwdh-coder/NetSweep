@@ -7,7 +7,7 @@ Thank you for your interest in contributing to NetSweep!
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/my-feature`)
 3. Make your changes
-4. Run `dotnet build` and `dotnet test`
+4. Run `dotnet build` (there is currently no test project in the solution, see ROADMAP.md)
 5. Commit with a clear message
 6. Open a Pull Request
 
