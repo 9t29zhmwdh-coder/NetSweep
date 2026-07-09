@@ -15,6 +15,10 @@ Designed for enterprise Microsoft environments. Supports SharePoint Online mappe
 
 ---
 
+> 🌱 New here? → [Step-by-step guide for beginners](GETTING_STARTED.md)
+
+---
+
 ## Features
 
 | Feature | Description |
@@ -65,8 +69,6 @@ Designed for enterprise Microsoft environments. Supports SharePoint Online mappe
 - Windows 10 / 11
 - [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (or publish self-contained)
 - Visual Studio 2022 (17.8+) with **.NET Desktop Development** workload *(for building)*
-
-> 🌱 New here? → [Step-by-step guide for beginners](GETTING_STARTED.md)
 
 ---
 
