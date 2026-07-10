@@ -17,7 +17,7 @@ Konzipiert für Microsoft-Enterprise-Umgebungen. Unterstützt SharePoint Online-
 
 ---
 
-> 💾 [**Installer herunterladen**](https://github.com/9t29zhmwdh-coder/NetSweep/releases/latest/download/NetSweep-Setup.exe) (NetSweep-Setup.exe, immer das neueste Release) — unsigniert, Windows SmartScreen zeigt beim ersten Start eine "Unbekannter Herausgeber"-Warnung. Oder selbst aus dem Quellcode bauen, siehe Erste Schritte unten.
+> 💾 [**Installer herunterladen**](https://github.com/9t29zhmwdh-coder/NetSweep/releases/latest/download/NetSweep-Setup.exe) (NetSweep-Setup.exe, immer das neueste Release): unsigniert, Windows SmartScreen zeigt beim ersten Start eine "Unbekannter Herausgeber"-Warnung. Oder selbst aus dem Quellcode bauen, siehe Erste Schritte unten.
 
 ---
 
