@@ -1,10 +1,14 @@
 <Window x:Class="NetSweep.Views.WelcomeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="NetSweep - Willkommen"
-        Height="540" Width="640"
+        xmlns:loc="clr-namespace:NetSweep.Helpers"
+        Title="{Binding Source={x:Static loc:Loc.Instance}, Path=[WelcomeTitle]}"
+        Height="560" Width="640"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanMinimize">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
     <Grid Margin="24">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -12,51 +16,99 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            <TextBlock Text="NetSweep" FontSize="28" FontWeight="Bold"/>
-            <TextBlock Text="Network Storage Cleanup" FontSize="14" Foreground="#666" Margin="0,0,0,12"/>
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="NetSweep" FontSize="28" FontWeight="Bold"/>
+                <TextBlock Text="Network Storage Cleanup" FontSize="14" Foreground="#666" Margin="0,0,0,12"/>
+            </StackPanel>
+            <Button Grid.Column="1" VerticalAlignment="Top"
+                    Content="{Binding Source={x:Static loc:Loc.Instance}, Path=LanguageToggleLabel}"
+                    ToolTip="{Binding Source={x:Static loc:Loc.Instance}, Path=LanguageToggleTooltip}"
+                    Click="LanguageToggle_Click" Width="36"/>
+        </Grid>
 
         <Border Grid.Row="1" BorderBrush="#DDD" BorderThickness="1" CornerRadius="6" Padding="16">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource Heading}" Text="Kurz &amp; wichtig zur Sicherheit"/>
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-                        Dieses Werkzeug verbindet sich mit Netzlaufwerken (NAS / UNC-Pfaden) und kann
-                        Dateien auflisten, kopieren, verschieben und <Bold>endgültig löschen</Bold>.
-                        Gehe daher bewusst damit um.
-                    </TextBlock>
+                <Grid>
+                    <!-- English (default) -->
+                    <StackPanel Visibility="{Binding Source={x:Static loc:Loc.Instance}, Path=IsEnglish, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Style="{StaticResource Heading}" Text="Quick &amp; important safety notes"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            This tool connects to network drives (NAS / UNC paths) and can
+                            list, copy, move and <Bold>permanently delete</Bold> files.
+                            Handle it with care.
+                        </TextBlock>
 
-                    <TextBlock Style="{StaticResource Heading}" Text="Empfohlenes Vorgehen"/>
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                        • Lege auf dem NAS ein <Bold>eigenes, eingeschränktes Konto</Bold> an,
-                        das nur Schreibrechte auf die Ordner hat, die wirklich bereinigt werden dürfen.
-                    </TextBlock>
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                        • Hinterlege Benutzername und Passwort pro Verbindung. Das Passwort wird
-                        <Bold>verschlüsselt</Bold> und nur für dein Windows-Konto auf diesem PC gespeichert.
-                    </TextBlock>
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
-                        • Starte immer mit dem <Bold>Bericht/Filter</Bold>, bevor du löschst.
-                        Nutze im Zweifel „In Quarantäne verschieben“ statt endgültig zu löschen.
-                    </TextBlock>
-                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-                        • Löschen erfolgt <Bold>ohne Papierkorb</Bold> und wird zweifach abgefragt.
-                    </TextBlock>
+                        <TextBlock Style="{StaticResource Heading}" Text="Recommended approach"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Create a <Bold>dedicated, restricted account</Bold> on the NAS
+                            that only has write access to the folders that may actually be cleaned up.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Store username and password per connection. The password is
+                            <Bold>encrypted</Bold> and stored only for your Windows account on this PC.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Always start with the <Bold>report/filter</Bold> before deleting anything.
+                            When in doubt, use "Move to Quarantine" instead of permanent deletion.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            • Deletion happens <Bold>without a Recycle Bin</Bold> and is confirmed twice.
+                        </TextBlock>
 
-                    <TextBlock Style="{StaticResource Heading}" Text="Was du tun kannst"/>
-                    <TextBlock TextWrapping="Wrap">
-                        Speicherbelegung pro Ordner ansehen (TreeSize-Art), alte und grosse Dateien finden,
-                        Duplikate erkennen, leere Ordner entfernen, kopieren/sichern und Berichte als CSV exportieren.
-                    </TextBlock>
-                </StackPanel>
+                        <TextBlock Style="{StaticResource Heading}" Text="What you can do"/>
+                        <TextBlock TextWrapping="Wrap">
+                            View storage usage per folder (TreeSize-style), find old and large files,
+                            detect duplicates, remove empty folders, copy/back up, and export reports as CSV.
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- German (option) -->
+                    <StackPanel Visibility="{Binding Source={x:Static loc:Loc.Instance}, Path=IsGerman, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Style="{StaticResource Heading}" Text="Kurz &amp; wichtig zur Sicherheit"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            Dieses Werkzeug verbindet sich mit Netzlaufwerken (NAS / UNC-Pfaden) und kann
+                            Dateien auflisten, kopieren, verschieben und <Bold>endgültig löschen</Bold>.
+                            Gehe daher bewusst damit um.
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource Heading}" Text="Empfohlenes Vorgehen"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Lege auf dem NAS ein <Bold>eigenes, eingeschränktes Konto</Bold> an,
+                            das nur Schreibrechte auf die Ordner hat, die wirklich bereinigt werden dürfen.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Hinterlege Benutzername und Passwort pro Verbindung. Das Passwort wird
+                            <Bold>verschlüsselt</Bold> und nur für dein Windows-Konto auf diesem PC gespeichert.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,4">
+                            • Starte immer mit dem <Bold>Bericht/Filter</Bold>, bevor du löschst.
+                            Nutze im Zweifel „In Quarantäne verschieben“ statt endgültig zu löschen.
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                            • Löschen erfolgt <Bold>ohne Papierkorb</Bold> und wird zweifach abgefragt.
+                        </TextBlock>
+
+                        <TextBlock Style="{StaticResource Heading}" Text="Was du tun kannst"/>
+                        <TextBlock TextWrapping="Wrap">
+                            Speicherbelegung pro Ordner ansehen (TreeSize-Art), alte und grosse Dateien finden,
+                            Duplikate erkennen, leere Ordner entfernen, kopieren/sichern und Berichte als CSV exportieren.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
             </ScrollViewer>
         </Border>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-            <CheckBox x:Name="DontShowAgain" Content="Diesen Hinweis kenne ich" VerticalAlignment="Center" Margin="0,0,16,0"/>
-            <Button Content="Schliessen" Click="Close_Click" MinWidth="110"/>
-            <Button Content="Starten" Click="Start_Click" MinWidth="110" FontWeight="SemiBold"/>
+            <CheckBox x:Name="DontShowAgain"
+                      Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[WelcomeDontShowAgain]}"
+                      VerticalAlignment="Center" Margin="0,0,16,0"/>
+            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[WelcomeClose]}" Click="Close_Click" MinWidth="110"/>
+            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[WelcomeStart]}" Click="Start_Click" MinWidth="110" FontWeight="SemiBold"/>
         </StackPanel>
     </Grid>
 </Window>

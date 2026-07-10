@@ -1,5 +1,6 @@
 using System.IO;
 using System.Runtime.InteropServices;
+using NetSweep.Helpers;
 using NetSweep.Models;
 
 namespace NetSweep.Services;
@@ -42,14 +43,16 @@ public class NetworkConnectionService
     {
         string path = connection.Path?.TrimEnd('\\') ?? string.Empty;
         if (string.IsNullOrWhiteSpace(path))
-            return (false, "Kein Pfad angegeben.");
+            return (false, Loc.Instance.Get("NoPathGiven"));
 
         // Local folders need no authentication.
         if (!path.StartsWith(@"\\"))
         {
             bool exists = Directory.Exists(path);
             connection.IsConnected = exists;
-            return exists ? (true, "Verbunden (lokaler Pfad).") : (false, "Pfad nicht gefunden.");
+            return exists
+                ? (true, Loc.Instance.Get("ConnectedLocalPath"))
+                : (false, Loc.Instance.Get("PathNotFound"));
         }
 
         var resource = new NetResource
@@ -73,8 +76,8 @@ public class NetworkConnectionService
         {
             connection.IsConnected = Directory.Exists(path);
             return connection.IsConnected
-                ? (true, "Verbindung hergestellt.")
-                : (false, $"Authentifiziert, aber Pfad nicht erreichbar (Code {result}).");
+                ? (true, Loc.Instance.Get("ConnectionEstablished"))
+                : (false, Loc.Instance.Get("AuthenticatedPathUnreachable", result));
         }
 
         connection.IsConnected = false;
@@ -93,11 +96,11 @@ public class NetworkConnectionService
 
     private static string DescribeError(int code) => code switch
     {
-        5 => "Zugriff verweigert. Benutzername oder Passwort pruefen.",
-        53 => "Netzwerkpfad nicht gefunden. NAS erreichbar?",
-        67 => "Netzwerkname nicht gefunden.",
-        86 => "Falsches Passwort.",
-        1326 => "Anmeldung fehlgeschlagen: falscher Benutzername oder Passwort.",
-        _ => $"Verbindung fehlgeschlagen (Windows-Fehlercode {code})."
+        5 => Loc.Instance.Get("AccessDenied"),
+        53 => Loc.Instance.Get("NetworkPathNotFound"),
+        67 => Loc.Instance.Get("NetworkNameNotFound"),
+        86 => Loc.Instance.Get("WrongPassword"),
+        1326 => Loc.Instance.Get("LoginFailed"),
+        _ => Loc.Instance.Get("ConnectionFailedCode", code)
     };
 }

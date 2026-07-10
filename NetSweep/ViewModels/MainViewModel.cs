@@ -21,7 +21,7 @@ public class MainViewModel : ViewModelBase
         set { SetField(ref _selected, value); RaiseCommandStates(); }
     }
 
-    private string _status = "Bereit.";
+    private string _status = Loc.Instance.Get("StatusReady");
     public string Status { get => _status; set => SetField(ref _status, value); }
 
     public RelayCommand AddCommand { get; }
@@ -39,18 +39,21 @@ public class MainViewModel : ViewModelBase
         OpenCommand = new RelayCommand(_ => Open(), _ => Selected != null);
 
         foreach (var c in _store.Load()) Connections.Add(c);
+
+        // Re-run the Status/IsConnected converter and refresh bound text when the language toggles.
+        Loc.Instance.PropertyChanged += (_, _) => RefreshList();
     }
 
     private void Add()
     {
-        var connection = new StorageConnection { Name = "Neue Verbindung" };
+        var connection = new StorageConnection { Name = Loc.Instance.Get("NewConnectionName") };
         var dialog = new ConnectionEditDialog(connection) { Owner = Application.Current.MainWindow };
         if (dialog.ShowDialog() == true)
         {
             Connections.Add(connection);
             Persist();
             Selected = connection;
-            Status = "Verbindung hinzugefuegt.";
+            Status = Loc.Instance.Get("StatusConnectionAdded");
         }
     }
 
@@ -61,7 +64,7 @@ public class MainViewModel : ViewModelBase
         if (dialog.ShowDialog() == true)
         {
             Persist();
-            Status = "Verbindung gespeichert.";
+            Status = Loc.Instance.Get("StatusConnectionSaved");
             RefreshList();
         }
     }
@@ -70,26 +73,26 @@ public class MainViewModel : ViewModelBase
     {
         if (Selected == null) return;
         var answer = MessageBox.Show(
-            $"Verbindung „{Selected.Name}“ wirklich entfernen?\n\n(Es werden keine Dateien geloescht, nur dieser Eintrag.)",
-            "Verbindung entfernen", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Loc.Instance.Get("RemoveConfirmMessage", Selected.Name),
+            Loc.Instance.Get("RemoveConfirmTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (answer == MessageBoxResult.Yes)
         {
             _network.Disconnect(Selected);
             Connections.Remove(Selected);
             Persist();
-            Status = "Verbindung entfernt.";
+            Status = Loc.Instance.Get("StatusConnectionRemoved");
         }
     }
 
     private void Connect()
     {
         if (Selected == null) return;
-        Status = "Verbinde...";
+        Status = Loc.Instance.Get("StatusConnecting");
         var (ok, message) = _network.Connect(Selected);
         RefreshList();
         Status = message;
         if (!ok)
-            MessageBox.Show(message, "Verbindung", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(message, Loc.Instance.Get("ConnectionDialogTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
     private void Open()
@@ -102,7 +105,7 @@ public class MainViewModel : ViewModelBase
             RefreshList();
             if (!ok)
             {
-                MessageBox.Show(message, "Verbindung", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(message, Loc.Instance.Get("ConnectionDialogTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
         }

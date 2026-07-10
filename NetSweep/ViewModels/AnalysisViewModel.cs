@@ -19,7 +19,7 @@ public class AnalysisViewModel : ViewModelBase
     private ScanResult? _lastResult;
     private CancellationTokenSource? _cts;
 
-    public string Title => $"Analyse: {_connection.Name}  ({_connection.Path})";
+    public string Title => Loc.Instance.Get("AnalysisTitleFormat", _connection.Name, _connection.Path);
 
     public ObservableCollection<FolderNode> TreeRoots { get; } = new();
     public ObservableCollection<FileEntry> Files { get; } = new();
@@ -43,7 +43,7 @@ public class AnalysisViewModel : ViewModelBase
     public bool IsBusy { get => _isBusy; set { SetField(ref _isBusy, value); OnPropertyChanged(nameof(IsIdle)); RaiseAll(); } }
     public bool IsIdle => !_isBusy;
 
-    private string _status = "Klicke „Scannen“, um zu starten.";
+    private string _status = Loc.Instance.Get("ClickScanToStart");
     public string Status { get => _status; set => SetField(ref _status, value); }
 
     private string _progress = "";
@@ -91,6 +91,8 @@ public class AnalysisViewModel : ViewModelBase
         CopyCommand = new RelayCommand(async p => { try { await CopyAsync(p as IList); } catch (Exception ex) { Status = ex.Message; } }, _ => IsIdle);
         ExportFilesCommand = new RelayCommand(_ => ExportFiles(), _ => Files.Count > 0);
         ExportDuplicatesCommand = new RelayCommand(_ => ExportDuplicates(), _ => Duplicates.Count > 0);
+
+        Loc.Instance.PropertyChanged += (_, _) => OnPropertyChanged(nameof(Title));
     }
 
     private bool HasData() => _lastResult != null;
@@ -99,7 +101,7 @@ public class AnalysisViewModel : ViewModelBase
     {
         _cts = new CancellationTokenSource();
         IsBusy = true;
-        Status = "Scanne...";
+        Status = Loc.Instance.Get("Scanning");
         Duplicates.Clear();
         try
         {
@@ -107,21 +109,21 @@ public class AnalysisViewModel : ViewModelBase
             TreeRoots.Clear();
             if (_lastResult.Tree != null) TreeRoots.Add(_lastResult.Tree);
             ApplyFilter();
-            Summary = $"{_lastResult.TotalFiles:N0} Dateien, {_lastResult.TotalFolders:N0} Ordner, " +
-                      $"{ByteSize.Format(_lastResult.TotalSize)} gesamt, " +
-                      $"{_lastResult.EmptyFolders.Count} leere Ordner.";
+            Summary = Loc.Instance.Get("ScanSummaryFormat",
+                _lastResult.TotalFiles, _lastResult.TotalFolders,
+                ByteSize.Format(_lastResult.TotalSize), _lastResult.EmptyFolders.Count);
             Status = _lastResult.Errors.Count > 0
-                ? $"Scan fertig mit {_lastResult.Errors.Count} Warnung(en) (z.B. fehlende Rechte)."
-                : "Scan abgeschlossen.";
+                ? Loc.Instance.Get("ScanDoneWithWarnings", _lastResult.Errors.Count)
+                : Loc.Instance.Get("ScanComplete");
         }
         catch (OperationCanceledException)
         {
-            Status = "Scan abgebrochen.";
+            Status = Loc.Instance.Get("ScanCancelled");
         }
         catch (Exception ex)
         {
-            Status = "Fehler beim Scannen.";
-            MessageBox.Show(ex.Message, "Scan-Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            Status = Loc.Instance.Get("ScanError");
+            MessageBox.Show(ex.Message, Loc.Instance.Get("ScanErrorTitle"), MessageBoxButton.OK, MessageBoxImage.Error);
         }
         finally
         {
@@ -159,7 +161,7 @@ public class AnalysisViewModel : ViewModelBase
         foreach (var f in list) Files.Add(f);
 
         long sum = list.Sum(f => f.Size);
-        Status = $"{list.Count:N0} Dateien gefiltert ({ByteSize.Format(sum)}).";
+        Status = Loc.Instance.Get("FilesFilteredFormat", list.Count, ByteSize.Format(sum));
         ExportFilesCommand.RaiseCanExecuteChanged();
     }
 
@@ -174,7 +176,7 @@ public class AnalysisViewModel : ViewModelBase
         if (_lastResult == null) return;
         _cts = new CancellationTokenSource();
         IsBusy = true;
-        Status = "Suche Duplikate (Dateien werden gehasht)...";
+        Status = Loc.Instance.Get("SearchingDuplicates");
         try
         {
             var groups = await _duplicateFinder.FindAsync(_lastResult.Files, _cts.Token);
@@ -182,9 +184,9 @@ public class AnalysisViewModel : ViewModelBase
             foreach (var g in groups) Duplicates.Add(g);
 
             long reclaim = groups.Sum(g => g.ReclaimableBytes);
-            Status = $"{groups.Count} Duplikatgruppen, bis zu {ByteSize.Format(reclaim)} freigebbar.";
+            Status = Loc.Instance.Get("DuplicateGroupsFormat", groups.Count, ByteSize.Format(reclaim));
         }
-        catch (OperationCanceledException) { Status = "Duplikatsuche abgebrochen."; }
+        catch (OperationCanceledException) { Status = Loc.Instance.Get("DuplicateSearchCancelled"); }
         finally { IsBusy = false; Progress = ""; ExportDuplicatesCommand.RaiseCanExecuteChanged(); }
     }
 
@@ -193,13 +195,13 @@ public class AnalysisViewModel : ViewModelBase
         if (_lastResult == null) return;
         if (_lastResult.EmptyFolders.Count == 0)
         {
-            MessageBox.Show("Keine leeren Ordner gefunden.", "Leere Ordner",
+            MessageBox.Show(Loc.Instance.Get("NoEmptyFoldersFound"), Loc.Instance.Get("EmptyFoldersTitle"),
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
         string list = string.Join('\n', _lastResult.EmptyFolders.Take(50));
-        if (_lastResult.EmptyFolders.Count > 50) list += $"\n... (+{_lastResult.EmptyFolders.Count - 50} weitere)";
-        MessageBox.Show(list, $"{_lastResult.EmptyFolders.Count} leere Ordner",
+        if (_lastResult.EmptyFolders.Count > 50) list += Loc.Instance.Get("MoreSuffixFormat", _lastResult.EmptyFolders.Count - 50);
+        MessageBox.Show(list, Loc.Instance.Get("EmptyFoldersCountTitleFormat", _lastResult.EmptyFolders.Count),
             MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
@@ -207,13 +209,13 @@ public class AnalysisViewModel : ViewModelBase
     {
         if (_lastResult == null || _lastResult.EmptyFolders.Count == 0)
         {
-            MessageBox.Show("Keine leeren Ordner zum Entfernen.", "Leere Ordner",
+            MessageBox.Show(Loc.Instance.Get("NoEmptyFoldersToRemove"), Loc.Instance.Get("EmptyFoldersTitle"),
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }
         var answer = MessageBox.Show(
-            $"{_lastResult.EmptyFolders.Count} leere Ordner entfernen?",
-            "Leere Ordner entfernen", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Loc.Instance.Get("RemoveEmptyFoldersConfirmFormat", _lastResult.EmptyFolders.Count),
+            Loc.Instance.Get("RemoveEmptyFoldersTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (answer != MessageBoxResult.Yes) return;
 
         _cts = new CancellationTokenSource();
@@ -221,7 +223,7 @@ public class AnalysisViewModel : ViewModelBase
         try
         {
             var report = await _fileOps.DeleteEmptyFoldersAsync(_lastResult.EmptyFolders, _cts.Token);
-            Status = $"Leere Ordner: {report.Summary}";
+            Status = Loc.Instance.Get("EmptyFoldersResultFormat", report.Summary);
         }
         finally { IsBusy = false; }
     }
@@ -233,8 +235,8 @@ public class AnalysisViewModel : ViewModelBase
         var files = selected?.OfType<FileEntry>().ToList() ?? new List<FileEntry>();
         if (files.Count == 0)
         {
-            MessageBox.Show("Bitte zuerst eine oder mehrere Dateien in der Liste markieren.",
-                "Keine Auswahl", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(Loc.Instance.Get("NoSelectionMessage"),
+                Loc.Instance.Get("NoSelectionTitle"), MessageBoxButton.OK, MessageBoxImage.Information);
             return null;
         }
         return files;
@@ -249,16 +251,14 @@ public class AnalysisViewModel : ViewModelBase
 
         // First warning
         var first = MessageBox.Show(
-            $"{files.Count} Datei(en) ({ByteSize.Format(total)}) endgueltig loeschen?",
-            "Wirklich loeschen?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            Loc.Instance.Get("DeleteConfirmFormat", files.Count, ByteSize.Format(total)),
+            Loc.Instance.Get("DeleteConfirmTitle"), MessageBoxButton.YesNo, MessageBoxImage.Warning);
         if (first != MessageBoxResult.Yes) return;
 
         // Second warning: explicit point of no return
         var second = MessageBox.Show(
-            "ACHTUNG: Diese Dateien werden NICHT in den Papierkorb verschoben.\n" +
-            "Sie koennen danach NICHT wiederhergestellt werden.\n\n" +
-            "Jetzt endgueltig loeschen?",
-            "Letzte Warnung", MessageBoxButton.YesNo, MessageBoxImage.Stop);
+            Loc.Instance.Get("DeleteFinalWarning"),
+            Loc.Instance.Get("FinalWarningTitle"), MessageBoxButton.YesNo, MessageBoxImage.Stop);
         if (second != MessageBoxResult.Yes) return;
 
         _cts = new CancellationTokenSource();
@@ -269,7 +269,7 @@ public class AnalysisViewModel : ViewModelBase
             // Drop files that no longer exist, then rebuild the filtered list.
             _lastResult!.Files.RemoveAll(f => files.Contains(f) && !File.Exists(f.FullPath));
             ApplyFilter();
-            Status = "Loeschen: " + report.Summary;
+            Status = Loc.Instance.Get("DeleteResultPrefix") + report.Summary;
             ShowErrors(report);
         }
         finally { IsBusy = false; Progress = ""; }
@@ -283,14 +283,14 @@ public class AnalysisViewModel : ViewModelBase
         string target = _connection.QuarantineFolder;
         if (string.IsNullOrWhiteSpace(target))
         {
-            var dlg = new OpenFolderDialog { Title = "Quarantaene-Ordner waehlen" };
+            var dlg = new OpenFolderDialog { Title = Loc.Instance.Get("ChooseQuarantineFolderPrompt") };
             if (dlg.ShowDialog() != true) return;
             target = dlg.FolderName;
         }
 
         var answer = MessageBox.Show(
-            $"{files.Count} Datei(en) nach\n{target}\nverschieben (Quarantaene)?",
-            "In Quarantaene verschieben", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Loc.Instance.Get("MoveToQuarantineConfirmFormat", files.Count, target),
+            Loc.Instance.Get("MoveToQuarantineTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (answer != MessageBoxResult.Yes) return;
 
         _cts = new CancellationTokenSource();
@@ -300,7 +300,7 @@ public class AnalysisViewModel : ViewModelBase
             var report = await _fileOps.MoveToQuarantineAsync(files, _connection.Path, target, _cts.Token);
             _lastResult!.Files.RemoveAll(f => files.Contains(f) && !File.Exists(f.FullPath));
             ApplyFilter();
-            Status = "Quarantaene: " + report.Summary;
+            Status = Loc.Instance.Get("QuarantineResultPrefix") + report.Summary;
             ShowErrors(report);
         }
         finally { IsBusy = false; Progress = ""; }
@@ -311,7 +311,7 @@ public class AnalysisViewModel : ViewModelBase
         var files = GetSelection(selected);
         if (files == null) return;
 
-        var dlg = new OpenFolderDialog { Title = "Zielordner fuer Kopie / Backup waehlen" };
+        var dlg = new OpenFolderDialog { Title = Loc.Instance.Get("ChooseCopyTargetTitle") };
         if (dlg.ShowDialog() != true) return;
 
         _cts = new CancellationTokenSource();
@@ -319,7 +319,7 @@ public class AnalysisViewModel : ViewModelBase
         try
         {
             var report = await _fileOps.CopyAsync(files, _connection.Path, dlg.FolderName, _cts.Token);
-            Status = "Kopieren: " + report.Summary;
+            Status = Loc.Instance.Get("CopyResultPrefix") + report.Summary;
             ShowErrors(report);
         }
         finally { IsBusy = false; Progress = ""; }
@@ -329,14 +329,14 @@ public class AnalysisViewModel : ViewModelBase
     {
         var dlg = new SaveFileDialog
         {
-            Title = "Dateiliste exportieren",
-            Filter = "CSV-Datei (*.csv)|*.csv",
-            FileName = $"NetSweep_Dateien_{DateTime.Now:yyyyMMdd_HHmm}.csv"
+            Title = Loc.Instance.Get("ExportFilesDialogTitle"),
+            Filter = Loc.Instance.Get("CsvFilterLabel"),
+            FileName = $"NetSweep_Files_{DateTime.Now:yyyyMMdd_HHmm}.csv"
         };
         if (dlg.ShowDialog() == true)
         {
             ReportService.ExportFiles(Files, dlg.FileName);
-            Status = $"Exportiert: {dlg.FileName}";
+            Status = Loc.Instance.Get("ExportedPrefix") + dlg.FileName;
         }
     }
 
@@ -344,14 +344,14 @@ public class AnalysisViewModel : ViewModelBase
     {
         var dlg = new SaveFileDialog
         {
-            Title = "Duplikate exportieren",
-            Filter = "CSV-Datei (*.csv)|*.csv",
-            FileName = $"NetSweep_Duplikate_{DateTime.Now:yyyyMMdd_HHmm}.csv"
+            Title = Loc.Instance.Get("ExportDuplicatesDialogTitle"),
+            Filter = Loc.Instance.Get("CsvFilterLabel"),
+            FileName = $"NetSweep_Duplicates_{DateTime.Now:yyyyMMdd_HHmm}.csv"
         };
         if (dlg.ShowDialog() == true)
         {
             ReportService.ExportDuplicates(Duplicates, dlg.FileName);
-            Status = $"Exportiert: {dlg.FileName}";
+            Status = Loc.Instance.Get("ExportedPrefix") + dlg.FileName;
         }
     }
 
@@ -359,8 +359,8 @@ public class AnalysisViewModel : ViewModelBase
     {
         if (report.Errors.Count == 0) return;
         string text = string.Join('\n', report.Errors.Take(20));
-        if (report.Errors.Count > 20) text += $"\n... (+{report.Errors.Count - 20} weitere)";
-        MessageBox.Show(text, $"{report.Errors.Count} Fehler", MessageBoxButton.OK, MessageBoxImage.Warning);
+        if (report.Errors.Count > 20) text += Loc.Instance.Get("MoreSuffixFormat", report.Errors.Count - 20);
+        MessageBox.Show(text, Loc.Instance.Get("ErrorsCountTitleFormat", report.Errors.Count), MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
     private void RaiseAll()

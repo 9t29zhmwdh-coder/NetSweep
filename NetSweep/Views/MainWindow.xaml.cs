@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
+using NetSweep.Helpers;
 using NetSweep.ViewModels;
 
 namespace NetSweep.Views;
@@ -16,4 +17,6 @@ public partial class MainWindow : Window
         if (DataContext is MainViewModel vm && vm.OpenCommand.CanExecute(null))
             vm.OpenCommand.Execute(null);
     }
+
+    private void LanguageToggle_Click(object sender, RoutedEventArgs e) => Loc.Instance.Toggle();
 }
