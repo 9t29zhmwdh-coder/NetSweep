@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:NetSweep.ViewModels"
-        Title="NetSweep - Verbindungen"
+        xmlns:loc="clr-namespace:NetSweep.Helpers"
+        Title="{Binding Source={x:Static loc:Localization.Instance}, Path=MainTitle}"
         Height="520" Width="820"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -18,16 +19,21 @@
     <DockPanel Margin="12">
         <!-- Toolbar -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
-            <TextBlock Text="Verbindungen zu Netzlaufwerken" Style="{StaticResource Heading}" VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Source={x:Static loc:Localization.Instance}, Path=ConnectionsHeading}"
+                       Style="{StaticResource Heading}" VerticalAlignment="Center"/>
+            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=LanguageToggleLabel}"
+                    ToolTip="{Binding Source={x:Static loc:Localization.Instance}, Path=LanguageToggleTooltip}"
+                    Click="LanguageToggle_Click" HorizontalAlignment="Right" Width="36"
+                    Margin="16,0,0,0"/>
         </StackPanel>
 
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
-            <Button Content="Hinzufügen" Command="{Binding AddCommand}"/>
-            <Button Content="Bearbeiten" Command="{Binding EditCommand}"/>
-            <Button Content="Entfernen" Command="{Binding RemoveCommand}"/>
+            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=Add}" Command="{Binding AddCommand}"/>
+            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=Edit}" Command="{Binding EditCommand}"/>
+            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=Remove}" Command="{Binding RemoveCommand}"/>
             <Separator Width="12" Background="Transparent"/>
-            <Button Content="Verbinden" Command="{Binding ConnectCommand}"/>
-            <Button Content="Öffnen / Analysieren" Command="{Binding OpenCommand}" FontWeight="SemiBold"/>
+            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=Connect}" Command="{Binding ConnectCommand}"/>
+            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=OpenAnalyze}" Command="{Binding OpenCommand}" FontWeight="SemiBold"/>
         </StackPanel>
 
         <!-- Status bar -->
@@ -46,10 +52,10 @@
                   SelectionMode="Single"
                   MouseDoubleClick="DataGrid_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="180"/>
-                <DataGridTextColumn Header="Pfad" Binding="{Binding Path}" Width="*"/>
-                <DataGridTextColumn Header="Benutzer" Binding="{Binding Username}" Width="140"/>
-                <DataGridTemplateColumn Header="Status" Width="110">
+                <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=ColumnName}" Binding="{Binding Name}" Width="180"/>
+                <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=ColumnPath}" Binding="{Binding Path}" Width="*"/>
+                <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=ColumnUser}" Binding="{Binding Username}" Width="140"/>
+                <DataGridTemplateColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=ColumnStatus}" Width="110">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding IsConnected, Converter={x:Static vm:BoolToStatusConverter.Instance}}"

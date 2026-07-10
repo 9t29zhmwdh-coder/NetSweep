@@ -1,4 +1,5 @@
 using System.Windows;
+using NetSweep.Helpers;
 
 namespace NetSweep.Views;
 
@@ -20,4 +21,6 @@ public partial class WelcomeWindow : Window
         DialogResult = false;
         Close();
     }
+
+    private void LanguageToggle_Click(object sender, RoutedEventArgs e) => Localization.Instance.Toggle();
 }

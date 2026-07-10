@@ -17,9 +17,11 @@ public partial class App : Application
 
         // Headless screenshot mode for CI (see .github/workflows/screenshot.yml): skips the
         // welcome dialog, renders MainWindow off-screen to a PNG, then exits.
+        // Optional third arg selects the UI language ("en", the default, or "de").
         if (e.Args.Length >= 2 && e.Args[0] == "--screenshot")
         {
             string screenshotPath = e.Args[1];
+            if (e.Args.Length >= 3) Localization.Instance.CurrentLanguage = e.Args[2];
             var main = new MainWindow();
             MainWindow = main;
             main.Show();

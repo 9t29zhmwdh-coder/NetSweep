@@ -1,5 +1,6 @@
 using System.Windows;
 using Microsoft.Win32;
+using NetSweep.Helpers;
 using NetSweep.Models;
 using NetSweep.Services;
 
@@ -23,13 +24,13 @@ public partial class ConnectionEditDialog : Window
 
     private void BrowsePath_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new OpenFolderDialog { Title = "Ordner / Netzlaufwerk waehlen" };
+        var dlg = new OpenFolderDialog { Title = Localization.Instance.Get("ChooseFolderTitle") };
         if (dlg.ShowDialog() == true) PathBox.Text = dlg.FolderName;
     }
 
     private void BrowseQuarantine_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new OpenFolderDialog { Title = "Quarantaene-Ordner waehlen" };
+        var dlg = new OpenFolderDialog { Title = Localization.Instance.Get("ChooseQuarantineFolderTitle") };
         if (dlg.ShowDialog() == true) QuarantineBox.Text = dlg.FolderName;
     }
 
@@ -37,7 +38,7 @@ public partial class ConnectionEditDialog : Window
     {
         if (string.IsNullOrWhiteSpace(PathBox.Text))
         {
-            MessageBox.Show("Bitte einen Pfad angeben.", "Pflichtfeld",
+            MessageBox.Show(Localization.Instance.Get("PathRequiredMessage"), Localization.Instance.Get("PathRequiredTitle"),
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }

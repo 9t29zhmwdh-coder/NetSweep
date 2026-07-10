@@ -1,5 +1,6 @@
 using System.IO;
 using System.Runtime.InteropServices;
+using NetSweep.Helpers;
 using NetSweep.Models;
 
 namespace NetSweep.Services;
@@ -42,14 +43,16 @@ public class NetworkConnectionService
     {
         string path = connection.Path?.TrimEnd('\\') ?? string.Empty;
         if (string.IsNullOrWhiteSpace(path))
-            return (false, "Kein Pfad angegeben.");
+            return (false, Localization.Instance.Get("NoPathGiven"));
 
         // Local folders need no authentication.
         if (!path.StartsWith(@"\\"))
         {
             bool exists = Directory.Exists(path);
             connection.IsConnected = exists;
-            return exists ? (true, "Verbunden (lokaler Pfad).") : (false, "Pfad nicht gefunden.");
+            return exists
+                ? (true, Localization.Instance.Get("ConnectedLocalPath"))
+                : (false, Localization.Instance.Get("PathNotFound"));
         }
 
         var resource = new NetResource
@@ -73,8 +76,8 @@ public class NetworkConnectionService
         {
             connection.IsConnected = Directory.Exists(path);
             return connection.IsConnected
-                ? (true, "Verbindung hergestellt.")
-                : (false, $"Authentifiziert, aber Pfad nicht erreichbar (Code {result}).");
+                ? (true, Localization.Instance.Get("ConnectionEstablished"))
+                : (false, Localization.Instance.Get("AuthenticatedPathUnreachable", result));
         }
 
         connection.IsConnected = false;
@@ -93,11 +96,11 @@ public class NetworkConnectionService
 
     private static string DescribeError(int code) => code switch
     {
-        5 => "Zugriff verweigert. Benutzername oder Passwort pruefen.",
-        53 => "Netzwerkpfad nicht gefunden. NAS erreichbar?",
-        67 => "Netzwerkname nicht gefunden.",
-        86 => "Falsches Passwort.",
-        1326 => "Anmeldung fehlgeschlagen: falscher Benutzername oder Passwort.",
-        _ => $"Verbindung fehlgeschlagen (Windows-Fehlercode {code})."
+        5 => Localization.Instance.Get("AccessDenied"),
+        53 => Localization.Instance.Get("NetworkPathNotFound"),
+        67 => Localization.Instance.Get("NetworkNameNotFound"),
+        86 => Localization.Instance.Get("WrongPassword"),
+        1326 => Localization.Instance.Get("LoginFailed"),
+        _ => Localization.Instance.Get("ConnectionFailedCode", code)
     };
 }

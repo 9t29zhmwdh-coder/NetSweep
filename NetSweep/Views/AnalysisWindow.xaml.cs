@@ -9,8 +9,6 @@ public partial class AnalysisWindow : Window
     public AnalysisWindow(StorageConnection connection)
     {
         InitializeComponent();
-        var vm = new AnalysisViewModel(connection);
-        DataContext = vm;
-        Title = vm.Title;
+        DataContext = new AnalysisViewModel(connection);
     }
 }
