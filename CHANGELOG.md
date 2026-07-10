@@ -3,6 +3,13 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.1] - 2026-07-10
+
+### Added
+
+- Real EN/DE screenshots regenerated with the new language toggle (`docs/screenshot.png`, `docs/screenshot.de.png`)
+- Installer download link in README.md/README.de.md pointing at the latest release's `NetSweep-Setup.exe`
+
 ## [0.3.0] - 2026-07-10
 
 ### Added
