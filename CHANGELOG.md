@@ -3,6 +3,14 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.0] - 2026-07-10
+
+### Added
+
+- EN/DE language toggle: English is now the default UI language, German is a toggle option (button in the top-right corner). All UI text, status messages and dialogs across MainWindow, WelcomeWindow, ConnectionEditDialog and AnalysisWindow are now localized (`Helpers/Loc.cs`)
+- `.github/workflows/installer.yml`: automatically builds an Inno Setup installer (`NetSweep-Setup.exe`) and attaches it to the GitHub Release whenever a release is published. Not code-signed: Windows SmartScreen shows an "Unknown Publisher" warning on first run (accepted trade-off for this project, no certificate)
+- `--screenshot` startup flag now accepts an optional language argument; the screenshot workflow produces both `docs/screenshot.png` (EN) and `docs/screenshot.de.png` (DE)
+
 ## [0.2.0] - 2026-07-10
 
 ### Added
