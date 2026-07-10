@@ -1,0 +1,41 @@
+name: Regenerate Screenshot
+
+# Manuell ausloesbar: baut die App und rendert das Hauptfenster off-screen
+# (RenderTargetBitmap) zu docs/screenshot.png, ohne echten Bildschirm-Capture.
+# Das PNG wird als Artefakt bereitgestellt, nicht automatisch committet.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  screenshot:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore NetSweep.sln
+
+      - name: Build (Release)
+        run: dotnet build NetSweep.sln -c Release --no-restore
+
+      - name: Capture screenshot
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -Path "NetSweep/bin/Release" -Filter "NetSweep.exe" -Recurse | Select-Object -First 1
+          & $exe.FullName --screenshot "$PWD\docs\screenshot.png"
+          Start-Sleep -Seconds 2
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: NetSweep-screenshot
+          path: docs/screenshot.png
+          if-no-files-found: error
