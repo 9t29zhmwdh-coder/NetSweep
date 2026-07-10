@@ -17,6 +17,10 @@ Designed for enterprise Microsoft environments. Supports SharePoint Online mappe
 
 ---
 
+> 💾 [**Download the installer**](https://github.com/9t29zhmwdh-coder/NetSweep/releases/latest/download/NetSweep-Setup.exe) (NetSweep-Setup.exe, always the latest release) — unsigned, so Windows SmartScreen will show an "Unknown Publisher" warning on first run. Or build from source, see Getting Started below.
+
+---
+
 > 🌱 New here? → [Step-by-step guide for beginners](GETTING_STARTED.md)
 
 ---
