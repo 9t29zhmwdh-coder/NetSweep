@@ -1,4 +1,4 @@
-name: Build NetSweep
+name: CI
 
 # Baut die WPF-App bei jedem Push / Pull Request auf main
 # und stellt die veroeffentlichte EXE als Artefakt bereit.
