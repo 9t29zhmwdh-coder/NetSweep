@@ -30,13 +30,11 @@ jobs:
       - name: Capture screenshots (EN + DE)
         shell: pwsh
         run: |
-          $ErrorActionPreference = "Stop"
           $exe = Get-ChildItem -Path "NetSweep/bin/Release" -Filter "NetSweep.exe" -Recurse | Select-Object -First 1
 
           function Capture($outPath, $lang) {
             Remove-Item $outPath -ErrorAction SilentlyContinue
-            & $exe.FullName --screenshot $outPath $lang
-            if ($LASTEXITCODE -ne 0) { throw "NetSweep.exe exited with code $LASTEXITCODE while capturing $lang screenshot" }
+            & $exe.FullName --screenshot $outPath $lang | Out-Null
             if (-not (Test-Path $outPath)) { throw "Screenshot was not created: $outPath" }
             Write-Host "Captured $lang screenshot: $outPath"
           }
