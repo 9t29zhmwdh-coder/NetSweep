@@ -21,7 +21,7 @@ public class MainViewModel : ViewModelBase
         set { SetField(ref _selected, value); RaiseCommandStates(); }
     }
 
-    private string _status = Localization.Instance.Get("StatusReady");
+    private string _status = Loc.Instance.Get("StatusReady");
     public string Status { get => _status; set => SetField(ref _status, value); }
 
     public RelayCommand AddCommand { get; }
@@ -41,19 +41,19 @@ public class MainViewModel : ViewModelBase
         foreach (var c in _store.Load()) Connections.Add(c);
 
         // Re-run the Status/IsConnected converter and refresh bound text when the language toggles.
-        Localization.Instance.PropertyChanged += (_, _) => RefreshList();
+        Loc.Instance.PropertyChanged += (_, _) => RefreshList();
     }
 
     private void Add()
     {
-        var connection = new StorageConnection { Name = Localization.Instance.Get("NewConnectionName") };
+        var connection = new StorageConnection { Name = Loc.Instance.Get("NewConnectionName") };
         var dialog = new ConnectionEditDialog(connection) { Owner = Application.Current.MainWindow };
         if (dialog.ShowDialog() == true)
         {
             Connections.Add(connection);
             Persist();
             Selected = connection;
-            Status = Localization.Instance.Get("StatusConnectionAdded");
+            Status = Loc.Instance.Get("StatusConnectionAdded");
         }
     }
 
@@ -64,7 +64,7 @@ public class MainViewModel : ViewModelBase
         if (dialog.ShowDialog() == true)
         {
             Persist();
-            Status = Localization.Instance.Get("StatusConnectionSaved");
+            Status = Loc.Instance.Get("StatusConnectionSaved");
             RefreshList();
         }
     }
@@ -73,26 +73,26 @@ public class MainViewModel : ViewModelBase
     {
         if (Selected == null) return;
         var answer = MessageBox.Show(
-            Localization.Instance.Get("RemoveConfirmMessage", Selected.Name),
-            Localization.Instance.Get("RemoveConfirmTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Loc.Instance.Get("RemoveConfirmMessage", Selected.Name),
+            Loc.Instance.Get("RemoveConfirmTitle"), MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (answer == MessageBoxResult.Yes)
         {
             _network.Disconnect(Selected);
             Connections.Remove(Selected);
             Persist();
-            Status = Localization.Instance.Get("StatusConnectionRemoved");
+            Status = Loc.Instance.Get("StatusConnectionRemoved");
         }
     }
 
     private void Connect()
     {
         if (Selected == null) return;
-        Status = Localization.Instance.Get("StatusConnecting");
+        Status = Loc.Instance.Get("StatusConnecting");
         var (ok, message) = _network.Connect(Selected);
         RefreshList();
         Status = message;
         if (!ok)
-            MessageBox.Show(message, Localization.Instance.Get("ConnectionDialogTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(message, Loc.Instance.Get("ConnectionDialogTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
     private void Open()
@@ -105,7 +105,7 @@ public class MainViewModel : ViewModelBase
             RefreshList();
             if (!ok)
             {
-                MessageBox.Show(message, Localization.Instance.Get("ConnectionDialogTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(message, Loc.Instance.Get("ConnectionDialogTitle"), MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
         }

@@ -5,12 +5,12 @@ namespace NetSweep.Helpers;
 /// <summary>
 /// Minimal runtime EN/DE localization. English is the default language; German is the
 /// opt-in toggle (see MEMORY: UI language default). Bind XAML to the named properties
-/// via {Binding Source={x:Static Helpers:Localization.Instance}, Path=Xxx}; call
+/// via {Binding Source={x:Static Helpers:Loc.Instance}, Path=Xxx}; call
 /// <see cref="Get"/> directly from C# for messages/status text.
 /// </summary>
-public sealed class Localization : INotifyPropertyChanged
+public sealed class Loc : INotifyPropertyChanged
 {
-    public static Localization Instance { get; } = new();
+    public static Loc Instance { get; } = new();
 
     private static readonly Dictionary<string, (string En, string De)> Strings = new()
     {

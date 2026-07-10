@@ -18,5 +18,5 @@ public partial class MainWindow : Window
             vm.OpenCommand.Execute(null);
     }
 
-    private void LanguageToggle_Click(object sender, RoutedEventArgs e) => Localization.Instance.Toggle();
+    private void LanguageToggle_Click(object sender, RoutedEventArgs e) => Loc.Instance.Toggle();
 }

@@ -22,5 +22,5 @@ public partial class WelcomeWindow : Window
         Close();
     }
 
-    private void LanguageToggle_Click(object sender, RoutedEventArgs e) => Localization.Instance.Toggle();
+    private void LanguageToggle_Click(object sender, RoutedEventArgs e) => Loc.Instance.Toggle();
 }

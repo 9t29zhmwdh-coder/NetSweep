@@ -11,7 +11,7 @@ public class BoolToStatusConverter : IValueConverter
     public static readonly BoolToStatusConverter Instance = new();
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => Localization.Instance.Get(value is true ? "Connected" : "Disconnected");
+        => Loc.Instance.Get(value is true ? "Connected" : "Disconnected");
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();
@@ -23,7 +23,7 @@ public class FileCountToTextConverter : IValueConverter
     public static readonly FileCountToTextConverter Instance = new();
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => Localization.Instance.Get("FileCountSuffix", value ?? 0);
+        => Loc.Instance.Get("FileCountSuffix", value ?? 0);
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();

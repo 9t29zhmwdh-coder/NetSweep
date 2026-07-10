@@ -21,7 +21,7 @@ public partial class App : Application
         if (e.Args.Length >= 2 && e.Args[0] == "--screenshot")
         {
             string screenshotPath = e.Args[1];
-            if (e.Args.Length >= 3) Localization.Instance.CurrentLanguage = e.Args[2];
+            if (e.Args.Length >= 3) Loc.Instance.CurrentLanguage = e.Args[2];
             var main = new MainWindow();
             MainWindow = main;
             main.Show();

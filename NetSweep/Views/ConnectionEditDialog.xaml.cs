@@ -24,13 +24,13 @@ public partial class ConnectionEditDialog : Window
 
     private void BrowsePath_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new OpenFolderDialog { Title = Localization.Instance.Get("ChooseFolderTitle") };
+        var dlg = new OpenFolderDialog { Title = Loc.Instance.Get("ChooseFolderTitle") };
         if (dlg.ShowDialog() == true) PathBox.Text = dlg.FolderName;
     }
 
     private void BrowseQuarantine_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new OpenFolderDialog { Title = Localization.Instance.Get("ChooseQuarantineFolderTitle") };
+        var dlg = new OpenFolderDialog { Title = Loc.Instance.Get("ChooseQuarantineFolderTitle") };
         if (dlg.ShowDialog() == true) QuarantineBox.Text = dlg.FolderName;
     }
 
@@ -38,7 +38,7 @@ public partial class ConnectionEditDialog : Window
     {
         if (string.IsNullOrWhiteSpace(PathBox.Text))
         {
-            MessageBox.Show(Localization.Instance.Get("PathRequiredMessage"), Localization.Instance.Get("PathRequiredTitle"),
+            MessageBox.Show(Loc.Instance.Get("PathRequiredMessage"), Loc.Instance.Get("PathRequiredTitle"),
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }

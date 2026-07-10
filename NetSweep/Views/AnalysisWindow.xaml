@@ -11,12 +11,12 @@
         <!-- Top toolbar -->
         <Border DockPanel.Dock="Top" Background="#F7F7F7" CornerRadius="4" Padding="8" Margin="0,0,0,8">
             <StackPanel Orientation="Horizontal">
-                <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[Scan]}" Command="{Binding ScanCommand}" FontWeight="SemiBold"/>
-                <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[CancelAction]}" Command="{Binding CancelCommand}"/>
+                <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[Scan]}" Command="{Binding ScanCommand}" FontWeight="SemiBold"/>
+                <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[CancelAction]}" Command="{Binding CancelCommand}"/>
                 <Separator Width="10" Background="Transparent"/>
-                <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[FindDuplicates]}" Command="{Binding FindDuplicatesCommand}"/>
-                <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[ShowEmptyFolders]}" Command="{Binding ShowEmptyFoldersCommand}"/>
-                <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[DeleteEmptyFolders]}" Command="{Binding DeleteEmptyFoldersCommand}"/>
+                <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[FindDuplicates]}" Command="{Binding FindDuplicatesCommand}"/>
+                <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[ShowEmptyFolders]}" Command="{Binding ShowEmptyFoldersCommand}"/>
+                <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[DeleteEmptyFolders]}" Command="{Binding DeleteEmptyFoldersCommand}"/>
                 <TextBlock Text="{Binding Summary}" VerticalAlignment="Center" Margin="16,0,0,0" Foreground="#555"/>
             </StackPanel>
         </Border>
@@ -32,46 +32,46 @@
 
         <TabControl>
             <!-- ===== Tab 1: Files + filters + actions ===== -->
-            <TabItem Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[TabFilesCleanup]}">
+            <TabItem Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[TabFilesCleanup]}">
                 <DockPanel Margin="6">
 
                     <!-- Filter row -->
                     <Border DockPanel.Dock="Top" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4"
                             Padding="8" Margin="0,0,0,8">
                         <WrapPanel>
-                            <TextBlock Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterOlderThanDays]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterOlderThanDays]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBox Width="70" Text="{Binding OlderThanDays, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"/>
-                            <TextBlock Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterLargerThan]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                            <TextBlock Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterLargerThan]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBox Width="90" Text="{Binding LargerThan, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"
-                                     ToolTip="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterLargerThanTooltip]}"/>
-                            <TextBlock Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterExtension]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                     ToolTip="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterLargerThanTooltip]}"/>
+                            <TextBlock Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterExtension]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBox Width="110" Text="{Binding ExtensionFilter, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"
-                                     ToolTip="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterExtensionTooltip]}"/>
-                            <TextBlock Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterNameContains]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                     ToolTip="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterExtensionTooltip]}"/>
+                            <TextBlock Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterNameContains]}" VerticalAlignment="Center" Margin="0,0,4,0"/>
                             <TextBox Width="120" Text="{Binding NameFilter, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,12,0"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterApply]}" Command="{Binding ApplyFilterCommand}"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[FilterReset]}" Command="{Binding ResetFilterCommand}"/>
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterApply]}" Command="{Binding ApplyFilterCommand}"/>
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[FilterReset]}" Command="{Binding ResetFilterCommand}"/>
                             <Separator Width="10" Background="Transparent"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[QuickOld]}" Command="{Binding QuickOldCommand}"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[QuickLarge]}" Command="{Binding QuickLargeCommand}"/>
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[QuickOld]}" Command="{Binding QuickOldCommand}"/>
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[QuickLarge]}" Command="{Binding QuickLargeCommand}"/>
                         </WrapPanel>
                     </Border>
 
                     <!-- Action row -->
                     <Border DockPanel.Dock="Bottom" Margin="0,8,0,0">
                         <WrapPanel>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[DeletePermanently]}"
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[DeletePermanently]}"
                                     Command="{Binding DeleteCommand}"
                                     CommandParameter="{Binding SelectedItems, ElementName=FileGrid}"
                                     Foreground="#B00020" FontWeight="SemiBold"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[MoveToQuarantine]}"
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[MoveToQuarantine]}"
                                     Command="{Binding QuarantineCommand}"
                                     CommandParameter="{Binding SelectedItems, ElementName=FileGrid}"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[CopyBackup]}"
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[CopyBackup]}"
                                     Command="{Binding CopyCommand}"
                                     CommandParameter="{Binding SelectedItems, ElementName=FileGrid}"/>
-                            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[ExportCsv]}" Command="{Binding ExportFilesCommand}"/>
-                            <TextBlock Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[MultiSelectHint]}"
+                            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[ExportCsv]}" Command="{Binding ExportFilesCommand}"/>
+                            <TextBlock Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[MultiSelectHint]}"
                                        VerticalAlignment="Center" Margin="12,0,0,0" Foreground="#888"/>
                         </WrapPanel>
                     </Border>
@@ -86,19 +86,19 @@
                               RowHeaderWidth="0"
                               EnableRowVirtualization="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnName]}" Binding="{Binding Name}" Width="240"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnSize]}" Binding="{Binding SizeText}" Width="90"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnModified]}" Binding="{Binding LastModified, StringFormat='yyyy-MM-dd HH:mm'}" Width="130"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnAgeDays]}" Binding="{Binding AgeDays}" Width="80"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnType]}" Binding="{Binding Extension}" Width="70"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnPath]}" Binding="{Binding FullPath}" Width="*"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnName]}" Binding="{Binding Name}" Width="240"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnSize]}" Binding="{Binding SizeText}" Width="90"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnModified]}" Binding="{Binding LastModified, StringFormat='yyyy-MM-dd HH:mm'}" Width="130"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnAgeDays]}" Binding="{Binding AgeDays}" Width="80"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnType]}" Binding="{Binding Extension}" Width="70"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnPath]}" Binding="{Binding FullPath}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DockPanel>
             </TabItem>
 
             <!-- ===== Tab 2: TreeSize ===== -->
-            <TabItem Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[TabFolderSize]}">
+            <TabItem Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[TabFolderSize]}">
                 <TreeView ItemsSource="{Binding TreeRoots}" Margin="6">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate ItemsSource="{Binding Children}">
@@ -114,11 +114,11 @@
             </TabItem>
 
             <!-- ===== Tab 3: Duplicates ===== -->
-            <TabItem Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[TabDuplicates]}">
+            <TabItem Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[TabDuplicates]}">
                 <DockPanel Margin="6">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
-                        <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[FindDuplicates]}" Command="{Binding FindDuplicatesCommand}"/>
-                        <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[ExportCsv]}" Command="{Binding ExportDuplicatesCommand}"/>
+                        <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[FindDuplicates]}" Command="{Binding FindDuplicatesCommand}"/>
+                        <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[ExportCsv]}" Command="{Binding ExportDuplicatesCommand}"/>
                     </StackPanel>
                     <DataGrid ItemsSource="{Binding Duplicates}"
                               AutoGenerateColumns="False"
@@ -126,9 +126,9 @@
                               RowHeaderWidth="0"
                               GridLinesVisibility="Horizontal">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnSizePerFile]}" Binding="{Binding SizeText}" Width="120"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnCount]}" Binding="{Binding Files.Count}" Width="70"/>
-                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Localization.Instance}, Path=[ColumnReclaimable]}" Binding="{Binding ReclaimableText}" Width="110"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnSizePerFile]}" Binding="{Binding SizeText}" Width="120"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnCount]}" Binding="{Binding Files.Count}" Width="70"/>
+                            <DataGridTextColumn Header="{Binding Source={x:Static loc:Loc.Instance}, Path=[ColumnReclaimable]}" Binding="{Binding ReclaimableText}" Width="110"/>
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
                             <DataTemplate>

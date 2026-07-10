@@ -1,0 +1,54 @@
+name: Build Installer
+
+# Laeuft automatisch, wenn ein GitHub Release veroeffentlicht wird: baut die
+# self-contained EXE, verpackt sie mit Inno Setup zu einem echten Windows-
+# Installer (Setup-Assistent, Startmenue-Verknuepfung, Uninstaller-Eintrag)
+# und haengt NetSweep-Setup.exe als Release-Asset an.
+#
+# Nicht signiert: Windows SmartScreen zeigt beim ersten Start eine
+# "Unbekannter Herausgeber"-Warnung. Bewusste Entscheidung fuer dieses
+# Projekt (siehe CHANGELOG, 2026-07-10) - kein Codesigning-Zertifikat.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  installer:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore NetSweep.sln
+
+      - name: Publish (self-contained, single file)
+        run: >-
+          dotnet publish NetSweep/NetSweep.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true
+          -o publish
+
+      - name: Install Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Compile installer
+        shell: pwsh
+        run: |
+          $version = "${{ github.event.release.tag_name }}".TrimStart('v')
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss "/DMyAppVersion=$version"
+
+      - name: Upload installer to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" "installer-output/NetSweep-Setup.exe" --clobber

@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:NetSweep.Helpers"
-        Title="{Binding Source={x:Static loc:Localization.Instance}, Path=[EditConnectionTitle]}"
+        Title="{Binding Source={x:Static loc:Loc.Instance}, Path=[EditConnectionTitle]}"
         Height="430" Width="560"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
@@ -23,31 +23,31 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FieldName]}" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FieldName]}" VerticalAlignment="Center" Margin="0,6"/>
         <TextBox   Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" x:Name="NameBox" Margin="0,6" Padding="4"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FieldPath]}" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FieldPath]}" VerticalAlignment="Center" Margin="0,6"/>
         <TextBox   Grid.Row="1" Grid.Column="1" x:Name="PathBox" Margin="0,6" Padding="4"/>
         <Button    Grid.Row="1" Grid.Column="2" Content="..." Width="40" Click="BrowsePath_Click"/>
 
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FieldUsername]}" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FieldUsername]}" VerticalAlignment="Center" Margin="0,6"/>
         <TextBox   Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="UserBox" Margin="0,6" Padding="4"/>
 
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FieldPassword]}" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FieldPassword]}" VerticalAlignment="Center" Margin="0,6"/>
         <PasswordBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="PassBox" Margin="0,6" Padding="4"/>
 
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[FieldQuarantineFolder]}" VerticalAlignment="Center" Margin="0,6"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[FieldQuarantineFolder]}" VerticalAlignment="Center" Margin="0,6"/>
         <TextBox   Grid.Row="4" Grid.Column="1" x:Name="QuarantineBox" Margin="0,6" Padding="4"/>
         <Button    Grid.Row="4" Grid.Column="2" Content="..." Width="40" Click="BrowseQuarantine_Click"/>
 
         <TextBlock Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap"
                    Foreground="#777" FontSize="11" Margin="0,4,0,0"
-                   Text="{Binding Source={x:Static loc:Localization.Instance}, Path=[PathHint]}"/>
+                   Text="{Binding Source={x:Static loc:Loc.Instance}, Path=[PathHint]}"/>
 
         <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"
                     Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[Cancel]}" Click="Cancel_Click" MinWidth="100"/>
-            <Button Content="{Binding Source={x:Static loc:Localization.Instance}, Path=[Save]}" Click="Save_Click" MinWidth="100" FontWeight="SemiBold"/>
+            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[Cancel]}" Click="Cancel_Click" MinWidth="100"/>
+            <Button Content="{Binding Source={x:Static loc:Loc.Instance}, Path=[Save]}" Click="Save_Click" MinWidth="100" FontWeight="SemiBold"/>
         </StackPanel>
     </Grid>
 </Window>
