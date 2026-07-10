@@ -30,11 +30,20 @@ jobs:
       - name: Capture screenshots (EN + DE)
         shell: pwsh
         run: |
+          $ErrorActionPreference = "Stop"
           $exe = Get-ChildItem -Path "NetSweep/bin/Release" -Filter "NetSweep.exe" -Recurse | Select-Object -First 1
-          & $exe.FullName --screenshot "$PWD\docs\screenshot.png" en
-          Start-Sleep -Seconds 1
-          & $exe.FullName --screenshot "$PWD\docs\screenshot.de.png" de
-          Start-Sleep -Seconds 1
+
+          function Capture($outPath, $lang) {
+            Remove-Item $outPath -ErrorAction SilentlyContinue
+            & $exe.FullName --screenshot $outPath $lang
+            if ($LASTEXITCODE -ne 0) { throw "NetSweep.exe exited with code $LASTEXITCODE while capturing $lang screenshot" }
+            if (-not (Test-Path $outPath)) { throw "Screenshot was not created: $outPath" }
+            Write-Host "Captured $lang screenshot: $outPath"
+          }
+
+          Capture "$PWD\docs\screenshot.png" "en"
+          Start-Sleep -Seconds 2
+          Capture "$PWD\docs\screenshot.de.png" "de"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v7
