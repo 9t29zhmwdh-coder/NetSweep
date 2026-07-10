@@ -3,6 +3,13 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.2.0] - 2026-07-10
+
+### Added
+
+- Real README screenshot (`docs/screenshot.png`), generated headlessly via a new `--screenshot <path>` startup flag that renders the main window off-screen (`RenderTargetBitmap`) and exits; see `.github/workflows/screenshot.yml` for the manually-triggered CI job that produces it
+- "New here?" beginner guide callout to README.de.md (was missing; README.md already had it)
+
 ## [0.1.1] - 2026-07-08
 
 ### Fixed
