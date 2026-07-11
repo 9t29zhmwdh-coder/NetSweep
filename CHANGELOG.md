@@ -3,6 +3,12 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.4] - 2026-07-11
+
+### Fixed
+
+- Removed a leftover employer reference from the project's initial commit: `Company`/`Publisher` metadata in `NetSweep.csproj` and `installer.iss` now correctly identify RayStudio/Rafael Yilmaz as the author, not a third party.
+
 ## [0.3.3] - 2026-07-11
 
 ### Added
