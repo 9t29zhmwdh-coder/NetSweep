@@ -31,3 +31,14 @@
 - [ ] SharePoint Online drive mapping via Microsoft Graph API (current support is via mapped UNC paths only, not the Graph API)
 - [ ] OneDrive for Business quota reporting
 - [ ] Microsoft Purview data lifecycle policy compliance check
+
+## Dual-Licensing Readiness
+
+Assessed 2026-07-11 as a Dual-Licensing candidate (Community MIT + Commercial/Enterprise tier): NetSweep is already explicitly positioned for enterprise Microsoft environments and aligned with Microsoft Purview data lifecycle management, and its own roadmap lists several classic enterprise differentiators. Not ready yet; blocked on:
+
+- [ ] No centralized or multi-share reporting yet: each run audits the shares one admin connects to, there is no org-wide storage governance view
+- [ ] SharePoint Online via Microsoft Graph API, OneDrive for Business quota reporting, and the Purview compliance check are still only roadmap entries, not implemented
+- [ ] No scheduled/automated scanning with centralized alerting yet (v0.2.0 item above)
+- [ ] No MSIX/Intune deployment package yet, which would be the natural enterprise distribution path
+
+Once the Graph API integration and Purview compliance check (v1.0.0) land, revisit: candidate Enterprise-only features would be org-wide storage governance reporting across shares, Purview compliance dashboarding, and Intune-deployed scheduled scans with centralized alerting, with the core connection management, storage visualization and duplicate/cleanup engine staying Community/MIT.
