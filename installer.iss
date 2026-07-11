@@ -4,7 +4,7 @@
 ; which is expected for this project (see CHANGELOG / project decision, 2026-07-10).
 
 #define MyAppName "NetSweep"
-#define MyAppPublisher "novoSYS Informatik GmbH"
+#define MyAppPublisher "RayStudio, Rafael Yilmaz"
 #define MyAppExeName "NetSweep.exe"
 #define MyAppURL "https://github.com/9t29zhmwdh-coder/NetSweep"
 
