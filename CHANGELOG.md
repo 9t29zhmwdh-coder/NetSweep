@@ -3,6 +3,12 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.8] - 2026-07-13
+
+### Added
+
+- README.md/README.de.md: "How it runs" callout, "In practice" paragraph, and "Uninstall/Cleanup" section, which this repo was missing entirely in both languages.
+
 ## [0.3.7] - 2026-07-12
 
 ### Fixed

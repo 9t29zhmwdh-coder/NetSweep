@@ -13,6 +13,8 @@ Designed for enterprise Microsoft environments. Supports SharePoint Online mappe
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/ci.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions) ![Microsoft | M365](https://img.shields.io/badge/Microsoft-M365-0078d4?logo=microsoft&logoColor=white) ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows&logoColor=0078d4) ![C#](https://img.shields.io/badge/C%23-239120?logo=dotnet&logoColor=white) ![AI | Claude Code](https://img.shields.io/badge/AI-Claude_Code-black?logo=anthropic&logoColor=white) ![AI | Copilot](https://img.shields.io/badge/AI-Copilot-black?logo=github&logoColor=white)
 ![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
 
+> **How it runs:** NetSweep is a native Windows desktop app (WPF), not a server and not a browser tool. It opens its own window like any installed program, with no tray icon or background service; it only scans and cleans while you actively run it.
+
 ![NetSweep](docs/screenshot.png)
 
 ---
@@ -22,6 +24,10 @@ Designed for enterprise Microsoft environments. Supports SharePoint Online mappe
 ---
 
 > 🌱 New here? → [Step-by-step guide for beginners](GETTING_STARTED.md)
+
+---
+
+**In practice:** you add your NAS/UNC/SharePoint/DFS paths once, NetSweep scans them and shows storage usage, duplicates (by SHA-256 hash) and stale files by age or pattern, and you review and confirm before anything is deleted, quarantined, or backed up; nothing is removed automatically.
 
 ---
 
@@ -91,6 +97,14 @@ dotnet run --project NetSweep
 # Self-contained single-file publish
 dotnet publish NetSweep/NetSweep.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
+
+---
+
+## Uninstall / Cleanup
+
+- If installed via `NetSweep-Setup.exe`: uninstall from Windows Settings → Apps, or via the uninstaller entry it creates
+- Delete `%AppData%\NetSweep\` to remove stored connection profiles; saved passwords are DPAPI-encrypted at rest but are still deleted with this folder
+- NetSweep never modifies files on your network shares unless you explicitly confirm a delete/quarantine/backup action; there is no other local state to clean up
 
 ---
 
