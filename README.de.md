@@ -13,6 +13,8 @@ Konzipiert für Microsoft-Enterprise-Umgebungen. Unterstützt SharePoint Online-
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/ci.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions) ![Microsoft | M365](https://img.shields.io/badge/Microsoft-M365-0078d4?logo=microsoft&logoColor=white) ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows&logoColor=0078d4) ![C#](https://img.shields.io/badge/C%23-239120?logo=dotnet&logoColor=white) ![AI | Claude Code](https://img.shields.io/badge/AI-Claude_Code-black?logo=anthropic&logoColor=white) ![AI | Copilot](https://img.shields.io/badge/AI-Copilot-black?logo=github&logoColor=white)
 ![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
 
+> **So läuft es:** NetSweep ist eine native Windows-Desktop-App (WPF), kein Server und kein Browser-Tool. Sie öffnet ihr eigenes Fenster wie jedes installierte Programm, ohne Tray-Icon oder Hintergrunddienst; sie scannt und bereinigt nur, während du sie aktiv ausführst.
+
 ![NetSweep](docs/screenshot.de.png)
 
 ---
@@ -22,6 +24,10 @@ Konzipiert für Microsoft-Enterprise-Umgebungen. Unterstützt SharePoint Online-
 ---
 
 > 🌱 Neu hier? → [Schritt-für-Schritt-Anleitung für Einsteiger](GETTING_STARTED.md)
+
+---
+
+**In der Praxis:** du fügst einmal deine NAS-/UNC-/SharePoint-/DFS-Pfade hinzu, NetSweep scannt sie und zeigt Speicherbelegung, Duplikate (per SHA-256-Hash) und veraltete Dateien nach Alter oder Muster; du prüfst und bestätigst, bevor irgendetwas gelöscht, quarantiniert oder gesichert wird, nichts wird automatisch entfernt.
 
 ---
 
@@ -91,6 +97,14 @@ dotnet run --project NetSweep
 # Self-contained Einzeldatei publizieren
 dotnet publish NetSweep/NetSweep.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
+
+---
+
+## Deinstallation / Aufräumen
+
+- Bei Installation über `NetSweep-Setup.exe`: Deinstallation über Windows-Einstellungen → Apps, oder über den erstellten Uninstaller-Eintrag
+- `%AppData%\NetSweep\` löschen, um gespeicherte Verbindungsprofile zu entfernen; gespeicherte Passwörter sind DPAPI-verschlüsselt, werden aber mit diesem Ordner ebenfalls gelöscht
+- NetSweep verändert nie Dateien auf deinen Netzwerkfreigaben, ausser du bestätigst explizit eine Löschen-/Quarantäne-/Backup-Aktion; es gibt keinen weiteren lokalen Zustand zum Aufräumen
 
 ---
 
