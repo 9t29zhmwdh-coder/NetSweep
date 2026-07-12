@@ -3,6 +3,12 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.5] - 2026-07-12
+
+### Added
+
+- Dual-Licensing skeleton: LICENSE.COMMERCIAL, COMMERCIAL.md, and ENTERPRISE_FEATURES.md, documenting the licensing model for a future Enterprise Edition ahead of any actual feature split. The existing MIT LICENSE and all currently released code are unchanged; nothing in this repository is restricted by this addition.
+
 ## [0.3.4] - 2026-07-11
 
 ### Fixed
