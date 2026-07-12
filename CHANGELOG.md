@@ -3,6 +3,12 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [0.3.7] - 2026-07-12
+
+### Fixed
+
+- Removed em-dashes and en-dashes from GETTING_STARTED.md. Swiss German orthography rule.
+
 ## [0.3.6] - 2026-07-12
 
 ### Added
