@@ -3,6 +3,11 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.0] - 2026-07-17
+
+First stable release: a real, packaged, installable distribution exists
+for end users. Real Windows installer (Inno Setup), the only platform this WPF/.NET app targets.
+
 ## [0.3.9] - 2026-07-17
 
 ### Changed
