@@ -8,6 +8,9 @@ name: Regenerate Screenshot
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   screenshot:
     runs-on: windows-latest
