@@ -11,7 +11,7 @@ public static class ReportService
     public static void ExportFiles(IEnumerable<FileEntry> files, string targetPath)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("Name;Pfad;Groesse (Bytes);Groesse;Geaendert;Letzter Zugriff;Alter (Tage);Typ");
+        sb.AppendLine("Name;Pfad;Größe (Bytes);Größe;Geändert;Letzter Zugriff;Alter (Tage);Typ");
         foreach (var f in files)
         {
             sb.AppendLine(string.Join(';',
@@ -30,7 +30,7 @@ public static class ReportService
     public static void ExportDuplicates(IEnumerable<DuplicateGroup> groups, string targetPath)
     {
         var sb = new StringBuilder();
-        sb.AppendLine("Hash;Groesse;Anzahl;Wiedergewinnbar;Datei");
+        sb.AppendLine("Hash;Größe;Anzahl;Wiedergewinnbar;Datei");
         foreach (var g in groups)
         {
             foreach (var f in g.Files)
