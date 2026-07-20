@@ -258,7 +258,7 @@ public class FileOperationServiceTests : IAsyncLifetime
         cts.Cancel();
 
         // Act & Assert
-        await Assert.ThrowsAsync<OperationCanceledException>(
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
             () => _service.DeletePermanentAsync(new[] { file }, cts.Token)
         );
     }

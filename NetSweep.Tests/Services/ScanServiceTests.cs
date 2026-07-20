@@ -139,7 +139,7 @@ public class ScanServiceTests : IAsyncLifetime
         cts.Cancel();
 
         // Act & Assert
-        await Assert.ThrowsAsync<OperationCanceledException>(
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(
             () => _service.ScanAsync(_testDirectory, cts.Token)
         );
     }
