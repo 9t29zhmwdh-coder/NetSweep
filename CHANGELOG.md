@@ -3,6 +3,16 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.1] - 2026-07-20
+
+### Changed
+
+- OpenSSF Scorecard workflow and badge.
+- `copilot-instructions.md` for consistent AI-assisted contributions.
+- Restored real German umlauts in UI localization strings.
+- Initial xUnit suite for the scan/classification/cleanup logic (25 tests) with coverage reporting in CI.
+- Split the README's security/CI badges onto their own line, separate from the platform/tech/AI badges (they were rendering as a single merged line).
+
 ## [1.0.0] - 2026-07-17
 
 First stable release: a real, packaged, installable distribution exists
