@@ -11,6 +11,7 @@ Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Net
 Konzipiert für Microsoft-Enterprise-Umgebungen. Unterstützt SharePoint Online-Laufwerke und OneDrive for Business, ausgerichtet an den [Microsoft Purview Datenverwaltungsempfehlungen](https://learn.microsoft.com/de-de/microsoft-365/compliance/manage-data-governance).
 
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/ci.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions) ![Microsoft | M365](https://img.shields.io/badge/Microsoft-M365-0078d4?logo=microsoft&logoColor=white) ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey?logo=windows&logoColor=0078d4) ![C#](https://img.shields.io/badge/C%23-239120?logo=dotnet&logoColor=white) ![AI | Claude Code](https://img.shields.io/badge/AI-Claude_Code-black?logo=anthropic&logoColor=white) ![AI | Copilot](https://img.shields.io/badge/AI-Copilot-black?logo=github&logoColor=white)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/9t29zhmwdh-coder/NetSweep/badge)](https://securityscorecards.dev/viewer/?uri=github.com/9t29zhmwdh-coder/NetSweep)
 ![WPF](https://img.shields.io/badge/WPF-.NET%208-blue?logo=windows)
 
 > **So läuft es:** NetSweep ist eine native Windows-Desktop-App (WPF), kein Server und kein Browser-Tool. Sie öffnet ihr eigenes Fenster wie jedes installierte Programm, ohne Tray-Icon oder Hintergrunddienst; sie scannt und bereinigt nur, während du sie aktiv ausführst.
