@@ -3,6 +3,17 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.4] - 2026-07-29
+
+### Changed
+
+Dependency and workflow updates merged since 1.0.3:
+
+- chore(ci): bump the actions group across 1 directory with 3 updates
+- chore(deps): Bump coverlet.collector and 3 others
+
+---
+
 ## [1.0.3] - 2026-07-28
 
 ### Changed
