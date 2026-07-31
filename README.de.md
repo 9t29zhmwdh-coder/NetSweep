@@ -6,9 +6,32 @@
 
 [🇬🇧 English Version](README.md)
 
-Eine Windows-Desktop-App (WPF, .NET 8) für die Prüfung und Bereinigung von Netzlaufwerken: NAS-Freigaben, UNC-Pfade, SharePoint-Bibliotheken und DFS-Namespaces. Verbindungen verwalten, Speicherbelegung visualisieren, Duplikate erkennen und veraltete Dateien mit Audit-Protokoll entfernen.
+**Zeigt, was die Freigabe auffrisst, und löscht nichts, bis du es sagst.**
 
-Konzipiert für Microsoft-Enterprise-Umgebungen. Unterstützt SharePoint Online-Laufwerke und OneDrive for Business, ausgerichtet an den [Microsoft Purview Datenverwaltungsempfehlungen](https://learn.microsoft.com/de-de/microsoft-365/compliance/manage-data-governance).
+Das Laufwerk ist voll. Irgendwo darin liegen dieselben zwölf Gigabyte in vier
+Kopien, Dateien, die seit 2019 niemand angefasst hat, und ein Ordner, der still
+gewachsen ist, ohne dass es jemandem aufgefallen wäre. Der Explorer sagt dir
+nicht, was davon was ist.
+
+NetSweep scannt NAS-Freigaben, UNC-Pfade, eingebundene SharePoint-Bibliotheken
+und DFS-Namespaces, bildet SHA-256-Hashes, um echte Duplikate statt gleicher
+Dateinamen zu finden, und listet veraltete Dateien nach Alter oder Muster.
+
+Von allein wird nichts entfernt. Jedes Löschen, Quarantänisieren und Sichern
+prüfst und bestätigst du, und es landet im Audit-Protokoll. Auf Verdacht von
+einem geteilten Laufwerk zu löschen ist genau der Weg, wie jemandem eine Datei
+abhandenkommt, die er noch gebraucht hätte.
+
+Unterstützt SharePoint-Online-Laufwerke und OneDrive for Business, ausgerichtet
+an den [Microsoft Purview
+Datenverwaltungsempfehlungen](https://learn.microsoft.com/de-de/microsoft-365/compliance/manage-data-governance).
+
+**Nichts für dich, wenn** es um deinen eigenen Laptop geht. WizTree oder
+TreeSize finden die dicken Ordner schneller; das Audit-Protokoll und der
+Bestätigungsschritt sind hier, weil das Laufwerk geteilt ist und die Dateien
+nicht nur dir gehören.
+
+Nur Windows: es ist eine WPF-Anwendung und läuft nirgends sonst.
 
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/ci.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions) [![CodeQL](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/security/code-scanning) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/9t29zhmwdh-coder/NetSweep/badge)](https://securityscorecards.dev/viewer/?uri=github.com/9t29zhmwdh-coder/NetSweep) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13689/badge)](https://www.bestpractices.dev/projects/13689)
 

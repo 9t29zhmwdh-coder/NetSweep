@@ -3,6 +3,14 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.7] - 2026-07-31
+
+### Changed
+
+- Both READMEs now open with the state of a full share, the same gigabytes copied four times and files nobody has touched since 2019, rather than listing what the application manages. Why nothing is deleted without confirmation is now given a reason instead of being stated as a feature. A short paragraph says WizTree or TreeSize are faster on your own laptop, and the Windows-only constraint is on the first screen.
+
+---
+
 ## [1.0.6] - 2026-07-29
 
 ### Security

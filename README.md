@@ -6,9 +6,30 @@
 
 [🇩🇪 Deutsche Version](README.de.md)
 
-A Windows desktop application (WPF, .NET 8) for auditing and cleaning up network drives: NAS shares, UNC paths, mapped SharePoint libraries and DFS namespaces. Manage connections, visualize storage usage, detect duplicates, and remove stale files with full audit-trail support.
+**Shows what is eating the share, and does not delete anything until you say so.**
 
-Designed for enterprise Microsoft environments. Supports SharePoint Online mapped drives and OneDrive for Business, aligned with [Microsoft Purview data lifecycle management](https://learn.microsoft.com/en-us/microsoft-365/compliance/manage-data-governance) recommendations.
+The drive is full. Somewhere in it are the same twelve gigabytes copied four
+times, files nobody has touched since 2019, and a folder that quietly grew
+without anyone noticing. Windows Explorer will not tell you which is which.
+
+NetSweep scans NAS shares, UNC paths, mapped SharePoint libraries and DFS
+namespaces, hashes files with SHA-256 to find true duplicates rather than
+matching names, and lists stale files by age or pattern.
+
+Nothing is removed on its own. Every deletion, quarantine and backup is
+reviewed and confirmed by you, and written to an audit trail, because deleting
+from a shared drive on a guess is how someone loses a file they needed.
+
+Supports SharePoint Online mapped drives and OneDrive for Business, aligned
+with [Microsoft Purview data lifecycle
+management](https://learn.microsoft.com/en-us/microsoft-365/compliance/manage-data-governance)
+recommendations.
+
+**Not for you if** it is your own laptop. WizTree or TreeSize find the big
+folders faster; the audit trail and the review step are here because the drive
+is shared and the files are not only yours.
+
+Windows only: it is a WPF app and does not run elsewhere.
 
 [![CI](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/ci.yml/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/actions) [![CodeQL](https://github.com/9t29zhmwdh-coder/NetSweep/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/9t29zhmwdh-coder/NetSweep/security/code-scanning) [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/9t29zhmwdh-coder/NetSweep/badge)](https://securityscorecards.dev/viewer/?uri=github.com/9t29zhmwdh-coder/NetSweep) [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/13689/badge)](https://www.bestpractices.dev/projects/13689)
 
