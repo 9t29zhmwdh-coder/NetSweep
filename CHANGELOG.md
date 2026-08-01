@@ -3,6 +3,14 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.9] - 2026-08-01
+
+### Fixed
+
+- Dependency groups outside `github-actions` now carry `update-types: ["minor", "patch"]`, so a major version arrives as its own pull request. Without it, a breaking change gets bundled with a dozen harmless patches: the combined diff cannot be reviewed honestly, and one incompatible package blocks every other update in the group, including a security patch that is needed at once. The template in `engineering-standards` has documented this since it happened; this repository had not applied it.
+
+---
+
 ## [1.0.8] - 2026-07-31
 
 ### Fixed
