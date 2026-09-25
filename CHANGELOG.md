@@ -3,6 +3,19 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.11] - 2026-09-25
+
+### Fixed
+
+- The README's "Download the installer" link returned 404. The installer workflow listened for `release: published`, but since the release workflow creates releases with the built-in `GITHUB_TOKEN`, GitHub no longer starts other workflows from that event; v1.0.5 through v1.0.10 shipped without `NetSweep-Setup.exe`. The installer now builds on the same tag push as the release, waits for the release to exist and attaches itself. For an existing release it can be started by hand with the tag.
+- The project version still said 1.0.9.
+
+### Security
+
+- The installer workflow no longer holds `contents: write` for its whole run. Building, including the third-party Inno Setup install from Chocolatey, runs read-only; a separate job with write access only uploads the finished file. The tag name reaches the scripts through an environment variable instead of being pasted into them.
+
+---
+
 ## [1.0.10] - 2026-08-04
 
 ### Fixed
