@@ -3,6 +3,16 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.13] - 2026-09-27
+
+### Changed
+
+Dependency and CI updates merged since v1.0.12, each with green checks:
+
+- chore(ci): Bump the actions group across 1 directory with 3 updates (#48)
+
+---
+
 ## [1.0.12] - 2026-09-27
 
 ### Security
