@@ -3,6 +3,17 @@
 All notable changes to NetSweep will be documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [1.0.15] - 2026-10-12
+
+### Changed
+
+Dependency and CI updates merged since v1.0.14, each with green checks:
+
+- chore(deps): Bump the nuget group with 2 updates (#57)
+- chore(ci): Bump the actions group with 5 updates (#58)
+
+---
+
 ## [1.0.14] - 2026-10-11
 
 ### Fixed
